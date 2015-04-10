@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="ubirch.rp15" version="0.0.1"
+        xmlns="http://www.w3.org/ns/widgets"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>ubirch - re:publica 2015</name>
+  <description>
+    The ubirch "Finding Europe with Lights" App for re:publica 2015.
+  </description>
+  <author email="info@ubirch.com" href="http://ubirch.com">ubirch GmbH</author>
+  <content src="index.html"/>
+  <access origin="*"/>
+  <icon src="www/img/ubirch_logo_tree.png"/>
+  <splash src="www/img/ubirch_logo_tree.png"/>
+</widget>
