@@ -1,0 +1,233 @@
+{
+  "AT": {
+    "country": "Austria",
+    "pos": [
+      "path1022_15_",
+      "path590_3_"
+    ],
+    "feed": "http://api.ubirch.com/channels/13/feed"
+  },
+  "BE": {
+    "country": "Belgium",
+    "pos": [
+      "path542_13_",
+      "path2670_9_"
+    ],
+    "feed": "http://api.ubirch.com/channels/14/feed"
+  },
+  "BG": {
+    "country": "Bulgaria",
+    "pos": [
+      "path1506_10_",
+      "path1718_9_"
+    ],
+    "feed": "http://api.ubirch.com/channels/15/feed"
+  },
+  "HR": {
+    "country": "Croatia",
+    "pos": [
+      "path2106_5_",
+      "path1214_3_"
+    ],
+    "feed": "http://api.ubirch.com/channels/16/feed"
+  },
+  "CY": {
+    "country": "Cyprus",
+    "pos": [
+      "path2002_11_",
+      "path1162_17_"
+    ],
+    "feed": "http://api.ubirch.com/channels/17/feed"
+  },
+  "CZ": {
+    "country": "Czech",
+    "pos": [
+      "path570_13_",
+      "path2874_4_"
+    ],
+    "feed": "http://api.ubirch.com/channels/12/feed"
+  },
+  "DK": {
+    "country": "Denmark",
+    "pos": [
+      "path2838_12_",
+      "path1022_9_"
+    ],
+    "feed": "http://api.ubirch.com/channels/18/feed"
+  },
+  "EE": {
+    "country": "Estonia",
+    "pos": [
+      "path2414_9_",
+      "path2594_8_"
+    ],
+    "feed": "http://api.ubirch.com/channels/19/feed"
+  },
+  "FI": {
+    "country": "Finland",
+    "pos": [
+      "path2110_9_",
+      "path2438_8_"
+    ],
+    "feed": "http://api.ubirch.com/channels/20/feed"
+  },
+  "FR": {
+    "country": "France",
+    "pos": [
+      "path1458_15_",
+      "path1762_8_"
+    ],
+    "feed": "http://api.ubirch.com/channels/21/feed"
+  },
+  "DE": {
+    "country": "Germany",
+    "pos": [
+      "path706_13_",
+      "path414_6_"
+    ],
+    "feed": "http://api.ubirch.com/channels/22/feed"
+  },
+  "GR": {
+    "country": "Greece",
+    "pos": [
+      "path2118_10_",
+      "path2786_9_"
+    ],
+    "feed": "http://api.ubirch.com/channels/23/feed"
+  },
+  "HU": {
+    "country": "Hungary",
+    "pos": [
+      "path1038_11_",
+      "path322_7_"
+    ]
+  },
+  "IE": {
+    "country": "Ireland",
+    "pos": [
+      "path58_2_",
+      "path1390_7_"
+    ],
+    "feed": "http://api.ubirch.com/channels/25/feed"
+  },
+  "IT": {
+    "country": "Italy",
+    "pos": [
+      "path2398_15_",
+      "path2230_26_"
+    ],
+    "feed": "http://api.ubirch.com/channels/26/feed"
+  },
+  "LV": {
+    "country": "Latvia",
+    "pos": [
+      "path2718_11_",
+      "path490_8_"
+    ],
+    "feed": "http://api.ubirch.com/channels/27/feed"
+  },
+  "LT": {
+    "country": "Lithuania",
+    "pos": [
+      "path2878_11_",
+      "path1254_8_"
+    ],
+    "feed": "http://api.ubirch.com/channels/28/feed"
+  },
+  "LU": {
+    "country": "Luxembourg",
+    "pos": [
+      "path546_13_",
+      "path246_7_"
+    ],
+    "feed": "http://api.ubirch.com/channels/29/feed"
+  },
+  "MT": {
+    "country": "Malta",
+    "pos": [
+      "???",
+      "???"
+    ],
+    "feed": "http://api.ubirch.com/channels/30/feed"
+  },
+  "NL": {
+    "country": "The Netherlands",
+    "pos": [
+      "path242_13_",
+      "path2066_10_"
+    ],
+    "feed": "http://api.ubirch.com/channels/1/feed"
+  },
+  "PL": {
+    "country": "Poland",
+    "pos": [
+      "path434_11_",
+      "path2306_8_"
+    ],
+    "feed": "http://api.ubirch.com/channels/4/feed"
+  },
+  "PT": {
+    "country": "Portugal",
+    "pos": [
+      "path1866_13_",
+      "path2590_10_"
+    ],
+    "feed": "http://api.ubirch.com/channels/31/feed"
+  },
+  "RO": {
+    "country": "Romania",
+    "pos": [
+      "path1214_10_",
+      "path974_9_"
+    ],
+    "feed": "http://api.ubirch.com/channels/5/feed"
+  },
+  "SK": {
+    "country": "Slovakia",
+    "pos": [
+      "path874_13_",
+      "path458_3_"
+    ],
+    "feed": "http://api.ubirch.com/channels/8/feed"
+  },
+  "SI": {
+    "country": "Slovenia",
+    "pos": [
+      "path1178_15_",
+      "path1206_3_"
+    ],
+    "feed": "http://api.ubirch.com/channels/7/feed"
+  },
+  "ES": {
+    "country": "Spain",
+    "pos": [
+      "path2054_13_",
+      "path1690_10_"
+    ],
+    "feed": "http://api.ubirch.com/channels/32/feed"
+  },
+  "SE": {
+    "country": "Sweden",
+    "pos": [
+      "path2250_12_",
+      "path2866_13_"
+    ],
+    "feed": "http://api.ubirch.com/channels/6/feed"
+  },
+  "UK": {
+    "country": "United",
+    "pos": [
+      "path382_13_",
+      "path2190_7_"
+    ],
+    "feed": "http://api.ubirch.com/channels/9/feed"
+  },
+  "CH": {
+    "country": "Switzerland",
+    "pos": [
+      "path2106_18_",
+      "path874_10_"
+    ],
+    "feed": "http://api.ubirch.com/channels/33/feed"
+  }
+}
