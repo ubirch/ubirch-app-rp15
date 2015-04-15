@@ -1,4 +1,5 @@
 function ubirchTopo() {
+    var REFRESH = 30000;
     var $app = $('.app'),
         $map = $('.map', $app);
 
@@ -79,7 +80,7 @@ function ubirchTopo() {
         }).always(function () {
             setTimeout(function () {
                 apiLoop(country)
-            }, 5000);
+            }, REFRESH);
         });
     }
 
@@ -97,4 +98,8 @@ function ubirchTopo() {
         // country border
         //d3.select('#grenzen').selectAll('polyline').attr('stroke', '#333333');
     });
+    //d3.xml('img/Finding_Lights_Republica2015_Map_150410_2.svg', 'image/svg+xml', function (xml) {
+    //    d3.select($map[0]).node().appendChild(xml.documentElement);
+    //
+    //});
 }
