@@ -1,7 +1,8 @@
 function ubirchTopo() {
     var REFRESH = 30000;
     var $app = $('.app'),
-        $map = $('.map', $app);
+        $map = $('.map', $app),
+        $detail = $('.detail',$app);
 
     function resize() {
         var width = d3.select($map[0]).node().getBoundingClientRect().width,
@@ -11,12 +12,15 @@ function ubirchTopo() {
         svg
             .attr('width', width)
             .attr('height', height);
+
+        var height = $detail.height();
+        $detail.css({backgroundSize:(height+50)+"px"});
     }
 
     var timeout = null;
 
     function showDetail(detailData, forceClose) {
-        var $detailContent = $('.detail .content', $app),
+        var $detailContent = $('.content', $detail),
             className = 'visible',
 			countryCode = detailData.name.toLowerCase(),
 			convertCountries = {uk:'gb'},
@@ -37,6 +41,27 @@ function ubirchTopo() {
         } else
             updateContent();
     }
+
+    (function handleCredits() {
+        var $credits = $('.credits'),
+            $leaf = $('.leaf',$credits),
+            className = 'is-open',
+            className2 = 'is-closing';
+
+        $credits.on('click', function(){
+            if($credits.hasClass(className)){
+                $credits.addClass(className2);
+                window.setTimeout(function(){
+                    $credits.removeClass(className2);
+                    $credits.removeClass(className);
+                    $leaf.css({width: '',height: ''});
+                },450);
+            } else {
+                $leaf.css({width: $(window).width(),height: $(window).height()});
+                $credits.addClass(className);
+            }
+        });
+    })();
 
     var sensors = {};
 
@@ -67,7 +92,6 @@ function ubirchTopo() {
                     g = feeds[0]['field2'],
                     b = feeds[0]['field3'];
 
-                console.log(country+": rgb(" + r + "," + g + "," + b + ")");
                 d3.select('#' + info['pos'][0])
                     .attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
@@ -93,7 +117,6 @@ function ubirchTopo() {
 
         d3.json("js/sensors.json", function (data) {
             sensors = data;
-            console.log(sensors);
             $.each(sensors, function(k) { setTimeout(function() { apiLoop(k); }, 0); });
         });
 
