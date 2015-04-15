@@ -86,7 +86,7 @@ function ubirchTopo() {
         });
     }
 
-    d3.xml('img/Finding_Lights_Republica2015_Map_150410_1.svg', 'image/svg+xml', function (xml) {
+    d3.xml('img/Finding_Lights_Republica2015_Map_150415_1.svg', 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
         resize();
         d3.select(window).on('resize', resize);
@@ -100,7 +100,7 @@ function ubirchTopo() {
         // country border
         //d3.select('#grenzen').selectAll('polyline').attr('stroke', '#333333');
     });
-    //d3.xml('img/Finding_Lights_Republica2015_Map_150410_2.svg', 'image/svg+xml', function (xml) {
+    //d3.xml('img/Finding_Lights_Republica2015_Map_150415_2.svg', 'image/svg+xml', function (xml) {
     //    d3.select($map[0]).node().appendChild(xml.documentElement);
     //
     //});
