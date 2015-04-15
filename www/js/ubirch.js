@@ -18,7 +18,9 @@ function ubirchTopo() {
     function showDetail(detailData, forceClose) {
         var $detailContent = $('.detail .content', $app),
             className = 'visible',
-            html = '<h2>' + detailData.name + '</h2><span>' + detailData.country + '</span>',
+			countryCode = detailData.name.toLowerCase(),
+			convertCountries = {uk:'gb'},
+            html = '<i class="flag flag-'+(countryCode in convertCountries ? convertCountries[countryCode] : countryCode)+'"></i> <span>' + detailData.country + '</span>',
             updateContent = function () {
                 $detailContent
                     .addClass(className)
