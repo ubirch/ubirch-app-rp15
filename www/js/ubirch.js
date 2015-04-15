@@ -54,21 +54,24 @@ function ubirchTopo() {
     (function handleCredits() {
         var $credits = $('.credits'),
             $leaf = $('.leaf',$credits),
-            className = 'is-open';
+            className = 'is-open',
+            className1 = 'is-closed';
 
         $credits.on('click', function(){
             if($credits.hasClass(className)){
+                $credits.addClass(className1);
                 $credits.removeClass(className);
+                window.setTimeout(function(){
+                    $credits.removeClass(className1);
+                },500);
             } else {
                 $credits.addClass(className);
             }
         });
-        console.log('handleCredits',app.isPhonegap)
         if(app.isPhonegap) {
             $('a', $credits).on('click', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                console.log(event.target,$(event.target),$(event.target).attr('href'))
                 window.open($(event.target).attr('href'), '_system', 'location=yes');
             });
         }
@@ -97,7 +100,8 @@ function ubirchTopo() {
             }
             try {
                 var name = channel['name'];
-                if (name != country) console.log("WARN: wrong country queried!");
+                if (name != country)
+                    console.log("WARN: wrong country queried!");
 
                 var r = feeds[0]['field1'],
                     g = feeds[0]['field2'],
@@ -109,6 +113,8 @@ function ubirchTopo() {
                     .on('click', function () {
                         showDetail({'name': name, country: channel['description']});
                     });
+
+                $(window).trigger('map:ready');
             } catch(e) {
                 console.log(e)
             }

@@ -175,6 +175,10 @@ body {
     height: 100%;
     font-size: 12px;
 }
+.credits.is-closed {
+    right: 0;
+    bottom: 0;
+}
 
 /* animation */
 .credits .content {

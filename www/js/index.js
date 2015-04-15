@@ -18,14 +18,14 @@ var app = {
 
         FastClick.attach(document.body);
 
-        window.setTimeout(function(){
+        $(window).on('map:ready', function(){
             // phonegap plugin
             if('splashscreen' in navigator){
                 navigator.splashscreen.hide();
             }
             // activate css animations
             $('.app').addClass('ready');
-        },500);
+        });
     }
 };
 
