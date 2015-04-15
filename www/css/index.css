@@ -126,6 +126,7 @@ body {
     width: 0;
     height: 0;
     font-size: 0;
+    margin: 10px;
 }
 .credits .content .bg {
     background: #ffffff;

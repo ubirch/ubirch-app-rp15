@@ -66,7 +66,8 @@ function ubirchTopo() {
         if(app.isPhonegap) {
             $('a', $credits).on('click', function (e) {
                 e.preventDefault();
-                window.open($(event.target).attr('href'), '_blank', 'location=yes');
+                e.stopPropagation();
+                window.open($(event.target).attr('href'), '_system', 'location=yes');
             });
         }
     })();
