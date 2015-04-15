@@ -13,7 +13,7 @@ function ubirchTopo() {
             svg = d3.select('svg');
         // portrait
         if(mapMaskWidth < mapMaskHeight){
-            mapMaskWidth = mapMaskWidth * mapRatio;
+            mapMaskWidth = (mapMaskHeight-25) * mapRatio;
             $('svg',$map).css({marginLeft:($map.width() / 2) - (mapMaskWidth / 2)+'px'});
         // landscape
         } else {
@@ -29,7 +29,7 @@ function ubirchTopo() {
 
     var timeout = null;
 
-    function showDetail(detailData, forceClose) {
+    function showDetail(detailData) {
         var $detailContent = $('.content', $detail),
             className = 'visible',
 			countryCode = detailData.name.toLowerCase(),
@@ -131,6 +131,21 @@ function ubirchTopo() {
         });
     }
 
+    function handleZoom(forceClose){
+        var className = 'zoom-in',
+            height = $map.height() / 2;
+        if($map.hasClass(className) || forceClose){
+            $map.removeClass(className+' top bottom');
+        } else {
+            $map.addClass(className).removeClass('top bottom');
+            if(height > d3.event.y) {
+                $map.addClass('top');
+            } else {
+                $map.addClass('bottom');
+            }
+        }
+    }
+
     d3.xml('img/Finding_Lights_Republica2015_Map_150415_1.svg', 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
         resize();
@@ -141,17 +156,8 @@ function ubirchTopo() {
             $.each(sensors, function(k) { setTimeout(function() { apiLoop(k); }, 0); });
         });
 
-        d3.select('#EU').selectAll('path').on('click',function(d){
-            console.log();
-            var height = $map.height() / 2;
-            $map.toggleClass('zoom-in').removeClass('top bottom');
-            if($map.hasClass('zoom-in')) {
-                if(height > d3.event.y) {
-                    $map.addClass('top');
-                } else {
-                    $map.addClass('bottom');
-                }
-            }
+        d3.select('svg').selectAll('path,rect').on('click',function(d){
+            handleZoom();
         });
     });
     //d3.xml('img/Finding_Lights_Republica2015_Map_150415_2.svg', 'image/svg+xml', function (xml) {
