@@ -66,6 +66,7 @@ function ubirchTopo() {
 
                 console.log(country+": rgb(" + r + "," + g + "," + b + ")");
                 d3.select('#' + info['pos'][0])
+                    .attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .on('click', function () {
                         showDetail({'name': name, country: channel['description']});
