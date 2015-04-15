@@ -61,9 +61,10 @@ function ubirchTopo() {
                 if (name != country) console.log("WARN: wrong country queried!");
 
                 var r = feeds[0]['field1'],
-                    g = feeds[0]['field1'],
-                    b = feeds[0]['field1'];
+                    g = feeds[0]['field2'],
+                    b = feeds[0]['field3'];
 
+                console.log(country+": rgb(" + r + "," + g + "," + b + ")");
                 d3.select('#' + info['pos'][0])
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .on('click', function () {
