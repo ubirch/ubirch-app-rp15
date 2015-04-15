@@ -45,19 +45,12 @@ function ubirchTopo() {
     (function handleCredits() {
         var $credits = $('.credits'),
             $leaf = $('.leaf',$credits),
-            className = 'is-open',
-            className2 = 'is-closing';
+            className = 'is-open';
 
         $credits.on('click', function(){
             if($credits.hasClass(className)){
-                $credits.addClass(className2);
-                window.setTimeout(function(){
-                    $credits.removeClass(className2);
-                    $credits.removeClass(className);
-                    $leaf.css({width: '',height: ''});
-                },450);
+                $credits.removeClass(className);
             } else {
-                $leaf.css({width: $(window).width(),height: $(window).height()});
                 $credits.addClass(className);
             }
         });

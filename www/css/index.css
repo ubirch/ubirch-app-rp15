@@ -100,7 +100,17 @@ body {
     top: 0;
     z-index: 1;
 }
-
+.credits figure {
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background-color: rgba(239,0,70,0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    margin: 5px;
+    padding: 5px;
+}
 .credits .leaf {
     background: url('../img/ubirch_logo_tree.png') no-repeat center transparent;
     background-size: cover;
@@ -108,10 +118,6 @@ body {
     cursor: pointer;
     width: 50px;
     height: 50px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
 }
 
 .credits .content {
@@ -120,6 +126,14 @@ body {
     position: relative;
     width: 0;
     height: 0;
+    font-size: 0;
+}
+.credits .content .bg {
+    background: #ffffff;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 50px;
 }
 .credits .content h2 {
     margin-bottom: 5px;
@@ -140,13 +154,11 @@ body {
     opacity: 1;
     width: 100%;
     height: 100%;
-}
-.credits.is-closing .content {
-    opacity: 0;
+    font-size: 12px;
 }
 
 /* animation */
-.credits .leaf, .credits .content {
+.credits .content {
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
@@ -156,4 +168,5 @@ body {
 /* hover map */
 g#EU path:hover {
     fill: steelblue;
+    cursor: pointer;
 }
