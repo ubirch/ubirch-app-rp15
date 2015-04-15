@@ -63,10 +63,12 @@ function ubirchTopo() {
                 $credits.addClass(className);
             }
         });
+        console.log('handleCredits',app.isPhonegap)
         if(app.isPhonegap) {
             $('a', $credits).on('click', function (e) {
-                e.preventDefault();
                 e.stopPropagation();
+                e.preventDefault();
+                console.log(event.target,$(event.target),$(event.target).attr('href'))
                 window.open($(event.target).attr('href'), '_system', 'location=yes');
             });
         }
