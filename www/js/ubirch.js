@@ -13,17 +13,17 @@ function ubirchTopo() {
         // portrait
         if(mapMaskWidth < mapMaskHeight){
             mapMaskWidth = mapMaskWidth * mapRatio;
-            $('svg',$map).css({'margin-left':($map.width() / 2) - (mapMaskWidth / 2)+'px'});
+            $('svg',$map).css({marginLeft:($map.width() / 2) - (mapMaskWidth / 2)+'px'});
         // landscape
         } else {
-            $('svg',$map).css({'margin-left':''});
+            $('svg',$map).css({marginLeft:''});
         }
 
         svg.attr('width', mapMaskWidth)
             .attr('height', mapMaskHeight);
 
         var height = $detail.height();
-        $detail.css({backgroundSize:(height+50)+"px"});
+        $('.bg',$detail).css({backgroundSize:(height+50)+"px"});
     }
 
     var timeout = null;
