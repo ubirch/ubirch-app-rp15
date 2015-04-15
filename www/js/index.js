@@ -17,8 +17,12 @@ var app = {
         FastClick.attach(document.body);
 
         window.setTimeout(function(){
-            $('.app')
-                .addClass('ready');
+            // phonegap plugin
+            if('splashscreen' in navigator){
+                navigator.splashscreen.hide();
+            }
+            // activate css animations
+            $('.app').addClass('ready');
         },500);
     }
 };
