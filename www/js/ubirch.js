@@ -54,18 +54,21 @@ function ubirchTopo() {
     (function handleCredits() {
         var $credits = $('.credits'),
             $leaf = $('.leaf',$credits),
-            className = 'is-open',
-            className1 = 'is-closed';
+            classClose = 'close',
+            classOpen = 'is-open',
+            classClossd = 'is-closed';
 
         $credits.on('click', function(){
-            if($credits.hasClass(className)){
-                $credits.addClass(className1);
-                $credits.removeClass(className);
+            if($credits.hasClass(classOpen)){
+                $leaf.removeClass(classClose);
+                $credits.addClass(classClossd);
+                $credits.removeClass(classOpen);
                 window.setTimeout(function(){
-                    $credits.removeClass(className1);
+                    $credits.removeClass(classClossd);
                 },500);
             } else {
-                $credits.addClass(className);
+                $leaf.addClass(classClose);
+                $credits.addClass(classOpen);
             }
         });
         if(app.isPhonegap) {

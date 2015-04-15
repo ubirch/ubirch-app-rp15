@@ -136,6 +136,9 @@ body {
     width: 50px;
     height: 50px;
 }
+.credits .leaf.close {
+    background-image: url('../img/close.png');
+}
 .credits .content {
     display: table;
     position: relative;
