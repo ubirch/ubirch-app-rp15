@@ -1,10 +1,12 @@
 var app = {
+    isPhonegap: false,
     initialize: function () {
         this.bindEvents();
     },
     bindEvents: function () {
         if (typeof cordova != 'undefined') {
             $(document).on('deviceready', this.onDeviceReady);
+            app.isPhonegap = true;
         } else {
             $(function(){
                 app.onDeviceReady();

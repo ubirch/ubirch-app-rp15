@@ -119,7 +119,6 @@ body {
     width: 50px;
     height: 50px;
 }
-
 .credits .content {
     opacity: 0;
     display: table;
@@ -130,8 +129,8 @@ body {
 }
 .credits .content .bg {
     background: #ffffff;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
     display: inline-block;
     padding: 50px;
 }
@@ -150,7 +149,6 @@ body {
 }
 
 .credits.is-open .content {
-    z-index: 2;
     opacity: 1;
     width: 100%;
     height: 100%;

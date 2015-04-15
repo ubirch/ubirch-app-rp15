@@ -13,8 +13,7 @@ function ubirchTopo() {
         // portrait
         if(mapMaskWidth < mapMaskHeight){
             mapMaskWidth = mapMaskWidth * mapRatio;
-            var newCenter = ($map.width() / 2) - (mapMaskWidth / 2);
-            $('svg',$map).css({'margin-left':newCenter+'px'});
+            $('svg',$map).css({'margin-left':($map.width() / 2) - (mapMaskWidth / 2)+'px'});
         // landscape
         } else {
             $('svg',$map).css({'margin-left':''});
@@ -64,6 +63,12 @@ function ubirchTopo() {
                 $credits.addClass(className);
             }
         });
+        if(app.isPhonegap) {
+            $('a', $credits).on('click', function (e) {
+                e.preventDefault();
+                window.open($(event.target).attr('href'), '_blank', 'location=yes');
+            });
+        }
     })();
 
     var sensors = {};
