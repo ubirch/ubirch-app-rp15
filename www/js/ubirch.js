@@ -4,7 +4,8 @@ function ubirchTopo() {
         mapRatio = mapDimensions[0]/mapDimensions[1],
         $app = $('.app'),
         $map = $('.map', $app),
-        $detail = $('.detail',$app);
+        $detail = $('.detail',$app),
+        dayColor = '#333333';
 
     function resize() {
         var mapMaskWidth = $map.width(),
@@ -140,8 +141,18 @@ function ubirchTopo() {
             $.each(sensors, function(k) { setTimeout(function() { apiLoop(k); }, 0); });
         });
 
-        // country border
-        //d3.select('#grenzen').selectAll('polyline').attr('stroke', '#333333');
+        d3.select('#EU').selectAll('path').on('click',function(d){
+            console.log();
+            var height = $map.height() / 2;
+            $map.toggleClass('zoom-in').removeClass('top bottom');
+            if($map.hasClass('zoom-in')) {
+                if(height > d3.event.y) {
+                    $map.addClass('top');
+                } else {
+                    $map.addClass('bottom');
+                }
+            }
+        });
     });
     //d3.xml('img/Finding_Lights_Republica2015_Map_150415_2.svg', 'image/svg+xml', function (xml) {
     //    d3.select($map[0]).node().appendChild(xml.documentElement);

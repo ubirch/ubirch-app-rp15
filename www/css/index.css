@@ -60,6 +60,23 @@ body {
 .app .map {
     height: 70%;
     background: #333333;
+    overflow: hidden;
+}
+.app .map svg {
+    transform: scale(1) translate(0,0);
+}
+.app .map.zoom-in.top svg {
+    transform: scale(1.5) translate(0,25%);
+}
+.app .map.zoom-in.bottom svg {
+    transform: scale(1.5) translate(0,-25%);
+}
+/* animation */
+.app .map svg{
+    -webkit-transition: transform 0.5s ease-out;
+    -moz-transition: transform 0.5s ease-out;
+    -o-transition: transform 0.5s ease-out;
+    transition: transform 0.5s ease-out;
 }
 
 .app .detail {
@@ -87,7 +104,7 @@ body {
     text-shadow: 0 0 10px rgba(150, 150, 150, 1);
 }
 /* animation */
-.app .map svg, .app .detail .content {
+.app .detail .content {
     opacity: 0;
     -webkit-transition: opacity 0.5s ease-out;
     -moz-transition: opacity 0.5s ease-out;
@@ -95,7 +112,7 @@ body {
     transition: opacity 0.5s ease-out;
 }
 
-.app.ready .map svg, .app .detail .content.visible {
+.app .detail .content.visible {
     opacity: 1;
 }
 
