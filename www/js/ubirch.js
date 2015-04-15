@@ -1,17 +1,27 @@
 function ubirchTopo() {
-    var REFRESH = 30000;
-    var $app = $('.app'),
+    var REFRESH = 30000,
+        mapDimensions = "934.011x661.642".split('x'),
+        mapRatio = mapDimensions[0]/mapDimensions[1],
+        $app = $('.app'),
         $map = $('.map', $app),
         $detail = $('.detail',$app);
 
     function resize() {
-        var width = d3.select($map[0]).node().getBoundingClientRect().width,
-            height = d3.select($map[0]).node().getBoundingClientRect().height,
+        var mapMaskWidth = $map.width(),
+            mapMaskHeight = $map.height(),
             svg = d3.select('svg');
+        // portrait
+        if(mapMaskWidth < mapMaskHeight){
+            mapMaskWidth = mapMaskWidth * mapRatio;
+            var newCenter = ($map.width() / 2) - (mapMaskWidth / 2);
+            $('svg',$map).css({'margin-left':newCenter+'px'});
+        // landscape
+        } else {
+            $('svg',$map).css({'margin-left':''});
+        }
 
-        svg
-            .attr('width', width)
-            .attr('height', height);
+        svg.attr('width', mapMaskWidth)
+            .attr('height', mapMaskHeight);
 
         var height = $detail.height();
         $detail.css({backgroundSize:(height+50)+"px"});
