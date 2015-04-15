@@ -117,7 +117,7 @@ body {
 .credits figure {
     -webkit-border-radius: 50%;
     border-radius: 50%;
-    background-color: rgba(239,0,70,0.6);
+    background-color: steelblue;
     position: absolute;
     top: 0;
     left: 0;
@@ -137,12 +137,13 @@ body {
     height: 50px;
 }
 .credits .content {
-    opacity: 0;
     display: table;
     position: relative;
     width: 0;
     height: 0;
+    opacity: 0;
     font-size: 0;
+    overflow: hidden;
 }
 .credits .content .bg {
     background: #ffffff;
@@ -158,13 +159,16 @@ body {
 .credits .content h2 {
     margin-bottom: 5px;
 }
+.credits .content a {
+    color: steelblue;
+}
 .credits .content .cell {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
 }
 
-.credits.is-open {
+.credits.is-open, .credits.is-closed {
     right: 0;
     bottom: 0;
 }
@@ -175,17 +179,13 @@ body {
     height: 100%;
     font-size: 12px;
 }
-.credits.is-closed {
-    right: 0;
-    bottom: 0;
-}
 
 /* animation */
 .credits .content {
-    -webkit-transition: all 0.5s ease-out;
+    /*-webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;*/
 }
 
 /* hover map */
