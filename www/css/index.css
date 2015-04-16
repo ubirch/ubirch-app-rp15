@@ -57,13 +57,17 @@ body {
 }
 
 .app .map {
+    position: relative;
     height: 70%;
     background: #333333;
     overflow: hidden;
 }
-/*.app .map svg {*/
-    /*transform: scale(1.0) translate(0,0);*/
-/*}*/
+
+.app .map svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
 /* animation */
 .app .map svg {

@@ -210,5 +210,6 @@ function ubirchTopo() {
             .attr("height", h)
             // this centers the svg
             .attr("preserveAspectRatio", "xMidYMid meet");
+
     });
 }
