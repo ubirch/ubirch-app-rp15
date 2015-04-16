@@ -1,10 +1,22 @@
-function ubirchTopo() {
+function ubirchTopo(mapScale) {
+    var MAPS = [
+        {
+            file: 'img/Finding_Lights_Republica2015_Map_150415_1.svg',
+            viewBox: '0 0 670 682',
+            transform: 'scale(1.25) translate(-234 -120)'
+        },
+        {
+            file: 'img/Finding_Lights_Republica2015_Map_150415_2.svg',
+            viewBox: '0 0 1380 1500',
+            transform: 'scale(1.16) translate(10 450)'
+        }
+    ];
     var REFRESH = 30000,
         mapDimensions = "934.011x661.642".split('x'),
-        mapRatio = mapDimensions[0]/mapDimensions[1],
+        mapRatio = mapDimensions[0] / mapDimensions[1],
         $app = $('.app'),
         $map = $('.map', $app),
-        $detail = $('.detail',$app),
+        $detail = $('.detail', $app),
         dayColor = '#333333',
         timeout = null,
         sensors = {};
@@ -27,19 +39,19 @@ function ubirchTopo() {
         //    .attr('height', mapMaskHeight);
 
         var height = $detail.height();
-        $('.bg',$detail).css({backgroundSize:(height+50)+"px"});
+        $('.bg', $detail).css({backgroundSize: (height + 50) + "px"});
 
         var height = $app.height();
-        $('.credits .bg').css({maxHeight:(height-150)+"px"})
+        $('.credits .bg').css({maxHeight: (height - 150) + "px"})
     }
 
     function showDetail(detailData) {
         var $detailContent = $('.content', $detail),
             className = 'visible',
-			countryCode = detailData.name.toLowerCase(),
-			convertCountries = {uk:'gb'},
-            html = '<i class="flag flag-'+(countryCode in convertCountries ? convertCountries[countryCode] : countryCode)+'"></i> <span>' + detailData.country + '</span>'+
-                    '<p>'+(detailData.text || 'No text available')+'</p>',
+            countryCode = detailData.name.toLowerCase(),
+            convertCountries = {uk: 'gb'},
+            html = '<i class="flag flag-' + (countryCode in convertCountries ? convertCountries[countryCode] : countryCode) + '"></i> <span>' + detailData.country + '</span>' +
+                '<p>' + (detailData.text || 'No text available') + '</p>',
             updateContent = function () {
                 $detailContent
                     .addClass(className)
@@ -59,19 +71,19 @@ function ubirchTopo() {
 
     (function handleCredits() {
         var $credits = $('.credits'),
-            $leaf = $('.leaf',$credits),
+            $leaf = $('.leaf', $credits),
             classClose = 'close',
             classOpen = 'is-open',
             classClosed = 'is-closed';
 
-        $credits.on('click', function(){
-            if($credits.hasClass(classOpen)){
+        $credits.on('click', function () {
+            if ($credits.hasClass(classOpen)) {
                 $leaf.removeClass(classClose);
                 $credits.addClass(classClosed);
                 $credits.removeClass(classOpen);
-                window.setTimeout(function(){
+                window.setTimeout(function () {
                     $credits.removeClass(classClosed);
-                },500);
+                }, 500);
             } else {
                 $leaf.addClass(classClose);
                 $credits.addClass(classOpen);
@@ -81,7 +93,7 @@ function ubirchTopo() {
         $('a', $credits).on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            if(app.isPhonegap) {
+            if (app.isPhonegap) {
                 window.open($(event.target).attr('href'), '_system', 'location=yes');
             } else {
                 window.open($(event.target).attr('href'), '_blank');
@@ -91,11 +103,11 @@ function ubirchTopo() {
 
     (function handleDayColor() {
         var dateNow = new Date(),
-            hours = dateNow .getHours();
+            hours = dateNow.getHours();
 
         $map.removeClass('night-time day-time');
 
-        if (hours > 4 && hours < 18){
+        if (hours > 4 && hours < 18) {
             $map.addClass('day-time');
         } else {
             $map.addClass('night-time');
@@ -106,19 +118,19 @@ function ubirchTopo() {
         var info = sensors[country];
         if (!info) return;
         if (!info['feed']) {
-            console.log("WARN: feed for "+country+" is missing!");
+            console.log("WARN: feed for " + country + " is missing!");
             return;
         }
         // check if we have a position 0 == map1, 1 == map2
-        if(info['pos'][0].indexOf("path") != 0) {
-            console.log("WARN: can't locate position for "+country+"!");
+        if (info['pos'][mapScale].indexOf("path") != 0) {
+            console.log("WARN: can't locate position for " + country + "!");
             return;
         }
 
-        $.ajax(info['feed']+".json?results=1").done(function (data) {
+        $.ajax(info['feed'] + ".json?results=1").done(function (data) {
             var channel = data['channel'], feeds = data['feeds'];
-            if(!channel || !feeds || feeds.length == 0) {
-                console.log("no data returned for "+country+" feed");
+            if (!channel || !feeds || feeds.length == 0) {
+                console.log("no data returned for " + country + " feed");
                 return;
             }
             try {
@@ -130,7 +142,7 @@ function ubirchTopo() {
                     g = feeds[0]['field2'],
                     b = feeds[0]['field3'];
 
-                d3.select('#' + info['pos'][0])
+                d3.select('#' + info['pos'][mapScale])
                     .attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .on('click', function () {
@@ -138,7 +150,7 @@ function ubirchTopo() {
                     });
 
                 $(window).trigger('map:ready');
-            } catch(e) {
+            } catch (e) {
                 console.log(e)
             }
         }).fail(function (e) {
@@ -150,66 +162,56 @@ function ubirchTopo() {
         });
     }
 
-    function handleZoom(forceClose){
+    function handleZoom(forceClose) {
         var className = 'zoom-in',
             middlePointY = $map.height() / 2,
             middlePointX = $map.width() / 2,
             scale = 1,
-            transform = {x: 0,y: 0};
+            transform = {x: 0, y: 0};
 
-        if($map.hasClass(className) || forceClose){
+        if ($map.hasClass(className) || forceClose) {
             $map.removeClass(className);
-            $('svg',$map).css({transform:''});
+            $('svg', $map).css({transform: ''});
         } else {
             $map.addClass(className);
             scale = 1.5;
-            if(middlePointY > d3.event.y) {
+            if (middlePointY > d3.event.y) {
                 transform.y = "15%";
             } else {
                 transform.y = "-25%";
             }
-            if(middlePointX > d3.event.x){
+            if (middlePointX > d3.event.x) {
                 transform.x = "15%";
             } else {
                 transform.x = "-15%";
             }
-            $('svg',$map).css({transform:'scale('+scale+') translate('+transform.x+', '+transform.y+')'});
+            $('svg', $map).css({transform: 'scale(' + scale + ') translate(' + transform.x + ', ' + transform.y + ')'});
         }
     }
 
-    d3.xml('img/Finding_Lights_Republica2015_Map_150415_1.svg', 'image/svg+xml', function (xml) {
+    d3.xml(MAPS[mapScale].file, 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
         resize();
         d3.select(window).on('resize', resize);
 
+        d3.select('svg').selectAll('path,rect').on('click', handleZoom);
+
+        // load the sensors
         d3.json("js/sensors.json", function (data) {
             sensors = data;
-            $.each(sensors, function(k) { setTimeout(function() { apiLoop(k); }, 0); });
+            $.each(sensors, function (k) {
+                setTimeout(function () {
+                    apiLoop(k);
+                }, 0);
+            });
         });
 
-        d3.select('svg').selectAll('path,rect').on('click',function(d){
-            handleZoom();
-        });
-
-        // get the width and height of our viewport
-        var w = $map.width(), h = $map.height();
-
-        // now get the bounding boxes of the elements
-        var mapBBox = d3.select($map[0]).select("svg").node().getBoundingClientRect();
-        var euBBox = d3.select($map[0]).select("#EU").node().getBoundingClientRect();
-        // check whether our #EU element fits better by width or height
-        var scaleWidth = (euBBox.width / w) > (euBBox.height / h);
-        // based on th check, scale either width or height to optimal size
-        var scale = "scale("+1/(scaleWidth ? euBBox.width / mapBBox.width :  euBBox.height / mapBBox.height)+")";
-        // now translate the #EU to fit best top left
-        var translate = "translate("+ (-euBBox.left) + " "+ (-euBBox.top) +")";
-        // finally apply transformation and also scale the svg element
-        d3.select($map[0]).selectAll("g").attr("transform", scale+translate);
+        // prepare map (typ 0 is coarse, type 1 more detailed)
         d3.select($map[0]).select("svg")
-            .attr("width", w)
-            .attr("height", h)
-            // this centers the svg
-            .attr("preserveAspectRatio", "xMidYMid meet");
+            .attr("viewBox", MAPS[mapScale].viewBox)
+            .attr("preserveAspectRatio", "xMidYMax meet");
 
+        d3.select($map[0]).select("svg").selectAll("g")
+            .attr("transform", MAPS[mapScale].transform);
     });
 }
