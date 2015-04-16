@@ -171,8 +171,8 @@ function ubirchTopo() {
 
     d3.xml('img/Finding_Lights_Republica2015_Map_150415_1.svg', 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
-        resize();
-        d3.select(window).on('resize', resize);
+        //resize();
+        //d3.select(window).on('resize', resize);
 
         d3.json("js/sensors.json", function (data) {
             sensors = data;
@@ -182,5 +182,26 @@ function ubirchTopo() {
         d3.select('svg').selectAll('path,rect').on('click',function(d){
             handleZoom();
         });
+
+
+        // get the width and height of our viewport
+        var w = $map.width(), h = $map.height();
+
+        // now get the bounding boxes of the elements
+        var mapBBox = d3.select($map[0]).select("svg").node().getBoundingClientRect();
+        var euBBox = d3.select($map[0]).select("#EU").node().getBoundingClientRect();
+        // check whether our #EU element fits better by width or height
+        var scaleWidth = (euBBox.width / w) > (euBBox.height / h);
+        // based on th check, scale either width or height to optimal size
+        var scale = "scale("+1/(scaleWidth ? euBBox.width / mapBBox.width :  euBBox.height / mapBBox.height)+")";
+        // now translate the #EU to fit best top left
+        var translate = "translate("+ (-euBBox.left) + " "+ (-euBBox.top) +")";
+        // finally apply transformation and also scale the svg element
+        d3.select($map[0]).selectAll("g").attr("transform", scale+translate);
+        d3.select($map[0]).select("svg")
+            .attr("width", w)
+            .attr("height", h)
+            // this centers the svg
+            .attr("preserveAspectRatio", "xMidYMid meet");
     });
 }
