@@ -28,3 +28,4 @@ ATTRIBUTION
 * [d3.js](d3js.org) ([BSD License](https://github.com/mbostock/d3/blob/master/LICENSE))
 * [fastclick.js](https://github.com/ftlabs/fastclick) ([MIT License](https://github.com/ftlabs/fastclick/blob/master/LICENSE))
 * [Flag-Sprites](https://www.flag-sprites.com/de_DE/) ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en_US))
+* [Lato Font](http://www.latofonts.com/) ([Open Font License 1.1](http://scripts.sil.org/OFL))
