@@ -57,15 +57,15 @@ function ubirchTopo() {
             $leaf = $('.leaf',$credits),
             classClose = 'close',
             classOpen = 'is-open',
-            classClossd = 'is-closed';
+            classClosed = 'is-closed';
 
         $credits.on('click', function(){
             if($credits.hasClass(classOpen)){
                 $leaf.removeClass(classClose);
-                $credits.addClass(classClossd);
+                $credits.addClass(classClosed);
                 $credits.removeClass(classOpen);
                 window.setTimeout(function(){
-                    $credits.removeClass(classClossd);
+                    $credits.removeClass(classClosed);
                 },500);
             } else {
                 $leaf.addClass(classClose);

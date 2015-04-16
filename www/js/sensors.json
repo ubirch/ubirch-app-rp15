@@ -100,7 +100,8 @@
     "pos": [
       "path1038_11_",
       "path322_7_"
-    ]
+    ],
+    "feed": "http://api.ubirch.com/channels/24/feed"
   },
   "IE": {
     "country": "Ireland",
