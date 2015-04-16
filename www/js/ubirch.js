@@ -86,7 +86,7 @@ function ubirchTopo() {
             hours = dateNow .getHours();
 
         $map.removeClass('night-time day-time');
-        
+
         if (hours > 4 && hours < 18){
             $map.addClass('day-time');
         } else {
@@ -144,16 +144,28 @@ function ubirchTopo() {
 
     function handleZoom(forceClose){
         var className = 'zoom-in',
-            height = $map.height() / 2;
+            middlePointY = $map.height() / 2,
+            middlePointX = $map.width() / 2,
+            scale = 1,
+            transform = {x: 0,y: 0};
+
         if($map.hasClass(className) || forceClose){
-            $map.removeClass(className+' top bottom');
+            $map.removeClass(className);
+            $('svg',$map).css({transform:''});
         } else {
-            $map.addClass(className).removeClass('top bottom');
-            if(height > d3.event.y) {
-                $map.addClass('top');
+            $map.addClass(className);
+            scale = 1.5;
+            if(middlePointY > d3.event.y) {
+                transform.y = "15%";
             } else {
-                $map.addClass('bottom');
+                transform.y = "-25%";
             }
+            if(middlePointX > d3.event.x){
+                transform.x = "15%";
+            } else {
+                transform.x = "-15%";
+            }
+            $('svg',$map).css({transform:'scale('+scale+') translate('+transform.x+', '+transform.y+')'});
         }
     }
 
