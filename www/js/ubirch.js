@@ -77,13 +77,16 @@ function ubirchTopo() {
                 $credits.addClass(classOpen);
             }
         });
-        if(app.isPhonegap) {
-            $('a', $credits).on('click', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
+
+        $('a', $credits).on('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            if(app.isPhonegap) {
                 window.open($(event.target).attr('href'), '_system', 'location=yes');
-            });
-        }
+            } else {
+                window.open($(event.target).attr('href'), '_blank');
+            }
+        });
     })();
 
     (function handleDayColor() {
