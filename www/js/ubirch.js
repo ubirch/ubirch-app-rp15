@@ -10,20 +10,21 @@ function ubirchTopo() {
         sensors = {};
 
     function resize() {
-        var mapMaskWidth = $map.width(),
-            mapMaskHeight = $map.height(),
-            svg = d3.select('svg');
-        // portrait
-        if(mapMaskWidth < mapMaskHeight){
-            mapMaskWidth = (mapMaskHeight-25) * mapRatio;
-            $('svg',$map).css({marginLeft:($map.width() / 2) - (mapMaskWidth / 2)+'px'});
-        // landscape
-        } else {
-            $('svg',$map).css({marginLeft:''});
-        }
-
-        svg.attr('width', mapMaskWidth)
-            .attr('height', mapMaskHeight);
+        //var mapMaskWidth = $map.width(),
+        //    mapMaskHeight = $map.height(),
+        //    svg = d3.select('svg');
+        //
+        //// portrait
+        //if(mapMaskWidth < mapMaskHeight){
+        //    mapMaskWidth = (mapMaskHeight-25) * mapRatio;
+        //    $('svg',$map).css({marginLeft:($map.width() / 2) - (mapMaskWidth / 2)+'px'});
+        //// landscape
+        //} else {
+        //    $('svg',$map).css({marginLeft:''});
+        //}
+        //
+        //svg.attr('width', mapMaskWidth)
+        //    .attr('height', mapMaskHeight);
 
         var height = $detail.height();
         $('.bg',$detail).css({backgroundSize:(height+50)+"px"});
@@ -34,7 +35,8 @@ function ubirchTopo() {
             className = 'visible',
 			countryCode = detailData.name.toLowerCase(),
 			convertCountries = {uk:'gb'},
-            html = '<i class="flag flag-'+(countryCode in convertCountries ? convertCountries[countryCode] : countryCode)+'"></i> <span>' + detailData.country + '</span>',
+            html = '<i class="flag flag-'+(countryCode in convertCountries ? convertCountries[countryCode] : countryCode)+'"></i> <span>' + detailData.country + '</span>'+
+                    '<p>'+(detailData.text || 'No text available')+'</p>',
             updateContent = function () {
                 $detailContent
                     .addClass(className)
@@ -126,7 +128,7 @@ function ubirchTopo() {
                     .attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .on('click', function () {
-                        showDetail({'name': name, country: channel['description']});
+                        showDetail({name: name, country: channel['description'], text: channel['metadata']});
                     });
 
                 $(window).trigger('map:ready');
@@ -171,8 +173,8 @@ function ubirchTopo() {
 
     d3.xml('img/Finding_Lights_Republica2015_Map_150415_1.svg', 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
-        //resize();
-        //d3.select(window).on('resize', resize);
+        resize();
+        d3.select(window).on('resize', resize);
 
         d3.json("js/sensors.json", function (data) {
             sensors = data;
@@ -182,7 +184,6 @@ function ubirchTopo() {
         d3.select('svg').selectAll('path,rect').on('click',function(d){
             handleZoom();
         });
-
 
         // get the width and height of our viewport
         var w = $map.width(), h = $map.height();
