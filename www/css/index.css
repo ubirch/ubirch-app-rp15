@@ -132,6 +132,16 @@ body {
     transition: background-size 0.5s ease-out;
 }
 
+.app .detail .colors {
+    display: inline-block;
+}
+
+.app .detail .colors .led {
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    padding: 5px;
+}
+
 /* credits */
 .credits {
     position: absolute;

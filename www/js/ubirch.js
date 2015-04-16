@@ -45,13 +45,18 @@ function ubirchTopo(mapScale) {
         $('.credits .bg').css({maxHeight: (height - 150) + "px"})
     }
 
-    function showDetail(detailData) {
+    function showDetail(details) {
         var $detailContent = $('.content', $detail),
             className = 'visible',
-            countryCode = detailData.name.toLowerCase(),
+            countryCode = details.name.toLowerCase(),
             convertCountries = {uk: 'gb'},
-            html = '<i class="flag flag-' + (countryCode in convertCountries ? convertCountries[countryCode] : countryCode) + '"></i> <span>' + detailData.country + '</span>' +
-                '<p>' + (detailData.text || 'No text available') + '</p>',
+            html = '<i class="flag flag-' + (countryCode in convertCountries ? convertCountries[countryCode] : countryCode) + '"></i> ' +
+                '<span>' + details.country + '</span>' +
+                '<p>' + (details.text || 'No text available') + '</p>' +
+                '<div class="colors">' +
+                '<div class="led" style="background-color: rgb('+details.color[0]+',0,0);">'+details.color[0]+'</div>'+
+                '<div class="led" style="background-color: rgb(0,'+details.color[1]+',0);">'+details.color[1]+'</div>'+
+                '<div class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</div>',
             updateContent = function () {
                 $detailContent
                     .addClass(className)
@@ -146,7 +151,7 @@ function ubirchTopo(mapScale) {
                     .attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .on('click', function () {
-                        showDetail({name: name, country: channel['description'], text: channel['metadata']});
+                        showDetail({name: name, country: channel['description'], text: channel['metadata'], color: [r,g,b]});
                     });
 
                 $(window).trigger('map:ready');
