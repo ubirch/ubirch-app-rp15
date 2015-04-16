@@ -5,7 +5,9 @@ function ubirchTopo() {
         $app = $('.app'),
         $map = $('.map', $app),
         $detail = $('.detail',$app),
-        dayColor = '#333333';
+        dayColor = '#333333',
+        timeout = null,
+        sensors = {};
 
     function resize() {
         var mapMaskWidth = $map.width(),
@@ -26,8 +28,6 @@ function ubirchTopo() {
         var height = $detail.height();
         $('.bg',$detail).css({backgroundSize:(height+50)+"px"});
     }
-
-    var timeout = null;
 
     function showDetail(detailData) {
         var $detailContent = $('.content', $detail),
@@ -81,7 +81,18 @@ function ubirchTopo() {
         }
     })();
 
-    var sensors = {};
+    (function handleDayColor() {
+        var dateNow = new Date(),
+            hours = dateNow .getHours();
+
+        $map.removeClass('night-time day-time');
+        
+        if (hours > 4 && hours < 18){
+            $map.addClass('day-time');
+        } else {
+            $map.addClass('night-time');
+        }
+    })();
 
     function apiLoop(country) {
         var info = sensors[country];
@@ -160,8 +171,4 @@ function ubirchTopo() {
             handleZoom();
         });
     });
-    //d3.xml('img/Finding_Lights_Republica2015_Map_150415_2.svg', 'image/svg+xml', function (xml) {
-    //    d3.select($map[0]).node().appendChild(xml.documentElement);
-    //
-    //});
 }
