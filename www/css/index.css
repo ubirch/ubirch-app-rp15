@@ -177,6 +177,7 @@ body {
     -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     display: none;
+    overflow: auto;
 }
 .credits .content h2 {
     margin-bottom: 5px;

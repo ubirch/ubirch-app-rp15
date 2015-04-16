@@ -28,6 +28,9 @@ function ubirchTopo() {
 
         var height = $detail.height();
         $('.bg',$detail).css({backgroundSize:(height+50)+"px"});
+
+        var height = $app.height();
+        $('.credits .bg').css({maxHeight:(height-150)+"px"})
     }
 
     function showDetail(detailData) {
