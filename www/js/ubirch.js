@@ -1,4 +1,9 @@
 function ubirchTopo(mapScale) {
+    if(window.analytics) {
+        window.analytics.startTrackerWithId('UA-61988119-1');
+        window.analytics.trackView('Map View');
+    }
+
     var MAPS = [
         {
             file: 'img/Finding_Lights_Republica2015_Map_150415_1.svg',
@@ -47,6 +52,7 @@ function ubirchTopo(mapScale) {
     }
 
     function showDetail(details) {
+        if(window.analytics) window.analytics.trackEvent('location', 'click', countryCode);
         var $detailContent = $('.content', $detail),
             className = 'visible',
             countryCode = details.name.toLowerCase(),
@@ -61,8 +67,6 @@ function ubirchTopo(mapScale) {
                         '</div>' +
                     '<p>' + (details.text || 'No text available') + '</p>' +
                     '<a class="twitter" data-msg="Finding Europe with Lights #fewl #rp15 #'+countryCodeRight+'" data-href="https://twitter.com/intent/tweet?hashtags=fewl%20%23rp15%20%23'+countryCodeRight+'&text=Finding%20Europe%20with%20Lights&tw_p=tweetbutton&url=http%3A%2F%2Fubirch.com"></a>' +
-                    //'<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ubirch.com" data-text="Finding Europe with Lights" data-hashtags="fewl #rp15 #'+countryCodeRight+'">Tweet</a>' +
-                    //'<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>'+
                     '</div>',
             updateContent = function () {
                 $detailContent
@@ -84,6 +88,8 @@ function ubirchTopo(mapScale) {
     }
 
     (function handleCredits() {
+        if(window.analytics) window.analytics.trackEvent('credits', 'click');
+
         var $credits = $('.credits'),
             $leaf = $('.leaf', $credits),
             classClose = 'close',
@@ -108,9 +114,11 @@ function ubirchTopo(mapScale) {
     })();
 
     function handleExternLinks($parent){
+
         $('a[target=_blank]', $parent).on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
+            if(window.analytics) window.analytics.trackEvent('link', 'click', $(event.target).attr('href'));
             openLink($(event.target).attr('href'));
         });
 
@@ -118,6 +126,7 @@ function ubirchTopo(mapScale) {
             e.stopPropagation();
             e.preventDefault();
             var element = $(this);
+            if(window.analytics) window.analytics.trackEvent('twitter', 'click', element.data('href'));
             shareTwitter(element.data('msg'),element.data('href'));
         })
     }
