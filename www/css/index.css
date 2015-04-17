@@ -112,17 +112,20 @@ body {
 .app .detail .content {
     display: table-cell;
     vertical-align: middle;
-    font-size: 30px;
     text-shadow: 0 0 10px rgba(150, 150, 150, 1);
     padding: 10px;
+    font-size: 16px;
 }
 .app .detail .content .body {
     max-width: 320px;
     margin: 0 auto;
     position: relative;
 }
+.app .detail .content span {
+    font-size: 1.875em;
+}
 .app .detail .content p {
-    font-size: 18px;
+    font-size: 1.125em;
     margin: 5px;
 }
 /* animation */
@@ -151,7 +154,7 @@ body {
     position: relative;
     right: 15px;
     top: 8px;
-    font-size: 12px;
+    font-size: 0.750em;
     color: #ffffff;
     vertical-align: text-bottom;
 }

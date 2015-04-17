@@ -52,12 +52,11 @@ function ubirchTopo(mapScale) {
             convertCountries = {uk: 'gb'},
             countryCodeRight = (countryCode in convertCountries ? convertCountries[countryCode] : countryCode),
             html = '<div class="body">' +
-                        '<i class="flag flag-' + countryCodeRight + '"></i> ' +
-                        details.country +
+                        '<span><i class="flag flag-' + countryCodeRight + '"></i> ' + details.country + '</span>'+
                         '<div class="colors">' +
-                        '<span class="led" style="background-color: rgb('+details.color[0]+',0,0);">'+details.color[0]+'</span>'+
-                        '<span class="led" style="background-color: rgb(0,'+details.color[1]+',0);">'+details.color[1]+'</span>'+
-                        '<span class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</span>' +
+                            '<div class="led" style="background-color: rgb('+details.color[0]+',0,0);">'+details.color[0]+'</div>'+
+                            '<div class="led" style="background-color: rgb(0,'+details.color[1]+',0);">'+details.color[1]+'</div>'+
+                            '<div class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</div>' +
                         '</div>' +
                     '<p>' + (details.text || 'No text available') + '</p>' +
                     '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ubirch.com" data-text="Finding Europe with Lights" data-hashtags="fewl #rp15 #'+countryCodeRight+'">Tweet</a>' +
