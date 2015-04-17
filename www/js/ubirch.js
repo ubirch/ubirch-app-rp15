@@ -48,7 +48,6 @@ function ubirchTopo(mapScale) {
         }
 
         $('.content',$app).css({fontSize:fontSize+'px'});
-
     }
 
     function showDetail(details) {
@@ -65,8 +64,9 @@ function ubirchTopo(mapScale) {
                             '<div class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</div>' +
                         '</div>' +
                     '<p>' + (details.text || 'No text available') + '</p>' +
-                    '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ubirch.com" data-text="Finding Europe with Lights" data-hashtags="fewl #rp15 #'+countryCodeRight+'">Tweet</a>' +
-                    '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>'+
+                    '<a class="twitter" data-msg"Finding Europe with Lights #fewl #rp15 #'+countryCodeRight+'" data-href="https://twitter.com/intent/tweet?hashtags=fewl%20%23rp15%20%23'+countryCodeRight+'&text=Finding%20Europe%20with%20Lights&tw_p=tweetbutton&url=http%3A%2F%2Fubirch.com">tweet</a>' +
+                    //'<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ubirch.com" data-text="Finding Europe with Lights" data-hashtags="fewl #rp15 #'+countryCodeRight+'">Tweet</a>' +
+                    //'<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>'+
                     '</div>',
             updateContent = function () {
                 $detailContent
@@ -115,12 +115,30 @@ function ubirchTopo(mapScale) {
         $('a[target=_blank]', $parent).on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            if (app.isPhonegap) {
-                window.open($(event.target).attr('href'), '_system', 'location=yes');
-            } else {
-                window.open($(event.target).attr('href'), '_blank');
-            }
+            openLink($(event.target).attr('href'));
         });
+
+        $('a.twitter', $parent).on('click', function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            var element = $(this);
+            shareTwitter(element.data('msg'),element.data('href'));
+        })
+    }
+
+    function openLink(href){
+        if (app.isPhonegap) {
+            window.open(href, '_system', 'location=yes');
+        } else {
+            window.open(href, '_blank');
+        }
+    }
+
+    function shareTwitter(msg, url) {
+        if('plugins' in window && 'socialsharing' in window.plugins)
+            window.plugins.socialsharing.shareViaTwitter(msg);
+        else
+            openLink(url);
     }
 
     (function handleDayColor() {
