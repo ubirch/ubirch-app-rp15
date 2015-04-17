@@ -151,7 +151,7 @@ function ubirchTopo(mapScale) {
                     .attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .on('click', function () {
-                        showDetail({name: name, country: channel['description'], text: channel['metadata'], color: [r,g,b]});
+                        showDetail({name: name, country: sensors[name]['country'], text: channel['description'], color: [r,g,b]});
                     });
 
                 $(window).trigger('map:ready');

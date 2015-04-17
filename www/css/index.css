@@ -83,6 +83,12 @@ body {
     transition: transform 0.5s ease-out;
 }
 
+.app .map svg polyline {
+    stroke-width: 5;
+    stroke-opacity: 30%;
+    stroke: #101010;
+}
+
 .app .detail {
     position: relative;
     overflow-x: hidden;
