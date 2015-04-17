@@ -22,27 +22,33 @@ function ubirchTopo(mapScale) {
         sensors = {};
 
     function resize() {
-        //var mapMaskWidth = $map.width(),
-        //    mapMaskHeight = $map.height(),
-        //    svg = d3.select('svg');
-        //
-        //// portrait
-        //if(mapMaskWidth < mapMaskHeight){
-        //    mapMaskWidth = (mapMaskHeight-25) * mapRatio;
-        //    $('svg',$map).css({marginLeft:($map.width() / 2) - (mapMaskWidth / 2)+'px'});
-        //// landscape
-        //} else {
-        //    $('svg',$map).css({marginLeft:''});
-        //}
-        //
-        //svg.attr('width', mapMaskWidth)
-        //    .attr('height', mapMaskHeight);
-
         var height = $detail.height();
         $('.bg', $detail).css({backgroundSize: (height + 50) + "px"});
 
         var height = $app.height();
-        $('.credits .bg').css({maxHeight: (height - 150) + "px"})
+        $('.credits .bg').css({maxHeight: (height - 150) + "px"});
+
+
+        var winDim = {
+            width: $(window).width(),
+            height: $(window).height()
+        },
+            fontSize = 16;
+
+        switch(true){
+            case winDim.width <= 400:
+                fontSize = 9;
+            break;
+            case winDim.width <= 600:
+                fontSize = 12;
+            break;
+            case winDim.width <= 1024:
+                fontSize = 14;
+            break;
+        }
+
+        $('.content',$app).css({fontSize:fontSize+'px'});
+
     }
 
     function showDetail(details) {
