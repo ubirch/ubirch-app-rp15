@@ -50,14 +50,16 @@ function ubirchTopo(mapScale) {
             className = 'visible',
             countryCode = details.name.toLowerCase(),
             convertCountries = {uk: 'gb'},
-            html = '<div><i class="flag flag-' + (countryCode in convertCountries ? convertCountries[countryCode] : countryCode) + '"></i> ' +
-                details.country +
-                '<div class="colors">' +
-                '<span class="led" style="background-color: rgb('+details.color[0]+',0,0);">'+details.color[0]+'</span>'+
-                '<span class="led" style="background-color: rgb(0,'+details.color[1]+',0);">'+details.color[1]+'</span>'+
-                '<span class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</span>' +
-                '</div>' +
-                '<p>' + (details.text || 'No text available') + '</p>' ,
+            html = '<div class="body">' +
+                        '<i class="flag flag-' + (countryCode in convertCountries ? convertCountries[countryCode] : countryCode) + '"></i> ' +
+                        details.country +
+                        '<div class="colors">' +
+                        '<span class="led" style="background-color: rgb('+details.color[0]+',0,0);">'+details.color[0]+'</span>'+
+                        '<span class="led" style="background-color: rgb(0,'+details.color[1]+',0);">'+details.color[1]+'</span>'+
+                        '<span class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</span>' +
+                        '</div>' +
+                    '<p>' + (details.text || 'No text available') + '</p>' +
+                    '</div>' ,
             updateContent = function () {
                 $detailContent
                     .addClass(className)
