@@ -88,7 +88,7 @@ body {
 }
 
 .app .map svg polyline {
-    stroke-width: 5;
+    stroke-width: 3;
     stroke-opacity: 30%;
     stroke: #101010;
 }
@@ -241,7 +241,7 @@ body {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     display: inline-block;
-    padding: 50px;
+    padding: 30px;
     margin: 10px;
     -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
