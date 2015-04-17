@@ -37,7 +37,7 @@ function ubirchTopo(mapScale) {
 
         switch(true){
             case winDim.width <= 400:
-                fontSize = 9;
+                fontSize = 10;
             break;
             case winDim.width <= 600:
                 fontSize = 12;
@@ -196,11 +196,11 @@ function ubirchTopo(mapScale) {
             $('svg', $map).css({transform: ''});
         } else {
             $map.addClass(className);
-            scale = 1.5;
+            scale = 2.5;
             if (middlePointY > d3.event.y) {
                 transform.y = "15%";
             } else {
-                transform.y = "-25%";
+                transform.y = "-30%";
             }
             if (middlePointX > d3.event.x) {
                 transform.x = "15%";
