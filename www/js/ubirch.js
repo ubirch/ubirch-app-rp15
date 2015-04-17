@@ -50,8 +50,9 @@ function ubirchTopo(mapScale) {
             className = 'visible',
             countryCode = details.name.toLowerCase(),
             convertCountries = {uk: 'gb'},
+            countryCodeRight = (countryCode in convertCountries ? convertCountries[countryCode] : countryCode),
             html = '<div class="body">' +
-                        '<i class="flag flag-' + (countryCode in convertCountries ? convertCountries[countryCode] : countryCode) + '"></i> ' +
+                        '<i class="flag flag-' + countryCodeRight + '"></i> ' +
                         details.country +
                         '<div class="colors">' +
                         '<span class="led" style="background-color: rgb('+details.color[0]+',0,0);">'+details.color[0]+'</span>'+
@@ -59,11 +60,14 @@ function ubirchTopo(mapScale) {
                         '<span class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</span>' +
                         '</div>' +
                     '<p>' + (details.text || 'No text available') + '</p>' +
+                    '<a href="http://twitter.com/home/?status=Finding%20Europe%20with%20Lights%20#fewl%20#rp15%20#'+countryCodeRight+'" target="_blank"> tweet it </a>'+
                     '</div>' ,
             updateContent = function () {
                 $detailContent
                     .addClass(className)
                     .html(html);
+
+                handleExternLinks($detailContent);
             };
 
         if ($detailContent.hasClass(className)) {
@@ -98,7 +102,11 @@ function ubirchTopo(mapScale) {
             }
         });
 
-        $('a', $credits).on('click', function (e) {
+        handleExternLinks($credits);
+    })();
+
+    function handleExternLinks($parent){
+        $('a[target=_blank]', $parent).on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
             if (app.isPhonegap) {
@@ -107,7 +115,7 @@ function ubirchTopo(mapScale) {
                 window.open($(event.target).attr('href'), '_blank');
             }
         });
-    })();
+    }
 
     (function handleDayColor() {
         var dateNow = new Date(),
