@@ -112,15 +112,18 @@ body {
 .app .detail .content {
     display: table-cell;
     vertical-align: middle;
-    /*text-align: center;*/
     font-size: 30px;
     text-shadow: 0 0 10px rgba(150, 150, 150, 1);
     padding: 10px;
 }
+.app .detail .content .body {
+    max-width: 320px;
+    margin: 0 auto;
+    position: relative;
+}
 .app .detail .content p {
     font-size: 18px;
-    margin: 5px auto;
-    max-width: 320px;
+    margin: 5px;
 }
 /* animation */
 .app .detail .content {
@@ -144,7 +147,9 @@ body {
 }
 
 .app .detail .colors {
-    float: right;
+    position: absolute;
+    right: 15px;
+    top: 8px;
     font-size: 12px;
     color: #ffffff;
     vertical-align: text-bottom;
