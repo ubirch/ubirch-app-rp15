@@ -147,7 +147,8 @@ body {
 }
 
 .app .detail .colors {
-    position: absolute;
+    float: right;
+    position: relative;
     right: 15px;
     top: 8px;
     font-size: 12px;
