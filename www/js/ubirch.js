@@ -60,7 +60,7 @@ function ubirchTopo(mapScale) {
                             '<div class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</div>' +
                         '</div>' +
                     '<p>' + (details.text || 'No text available') + '</p>' +
-                    '<a class="twitter" data-msg="Finding Europe with Lights #fewl #rp15 #'+countryCodeRight+'" data-href="https://twitter.com/intent/tweet?hashtags=fewl%20%23rp15%20%23'+countryCodeRight+'&text=Finding%20Europe%20with%20Lights&tw_p=tweetbutton&url=http%3A%2F%2Fubirch.com">tweet</a>' +
+                    '<a class="twitter" data-msg="Finding Europe with Lights #fewl #rp15 #'+countryCodeRight+'" data-href="https://twitter.com/intent/tweet?hashtags=fewl%20%23rp15%20%23'+countryCodeRight+'&text=Finding%20Europe%20with%20Lights&tw_p=tweetbutton&url=http%3A%2F%2Fubirch.com"></a>' +
                     //'<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ubirch.com" data-text="Finding Europe with Lights" data-hashtags="fewl #rp15 #'+countryCodeRight+'">Tweet</a>' +
                     //'<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>'+
                     '</div>',
@@ -181,6 +181,7 @@ function ubirchTopo(mapScale) {
                 d3.select('#' + info['pos'][mapScale])
                     .attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
+                    .attr('class', 'with-cursor')
                     .on('click', function () {
                         showDetail({name: name, country: sensors[name]['country'], text: channel['description'], color: [r,g,b]});
                     });

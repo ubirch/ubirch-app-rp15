@@ -45,6 +45,10 @@ body {
     overflow: hidden;
 }
 
+.with-cursor{
+    cursor: pointer;
+}
+
 .app {
     position: absolute;
     top: 0;
@@ -176,6 +180,13 @@ body {
 }
 .app .detail .colors .led:last-child {
     margin-right: 0;
+}
+.app .detail a.twitter{
+    cursor: pointer;
+    display: inline-block;
+    width: 70px;
+    height: 30px;
+    background-image: url('../img/tweet-button-small.png');
 }
 
 /* credits */
