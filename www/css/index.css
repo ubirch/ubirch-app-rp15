@@ -112,7 +112,7 @@ body {
 .app .detail .content {
     display: table-cell;
     vertical-align: middle;
-    text-align: center;
+    /*text-align: center;*/
     font-size: 30px;
     text-shadow: 0 0 10px rgba(150, 150, 150, 1);
     padding: 10px;
@@ -144,17 +144,22 @@ body {
 }
 
 .app .detail .colors {
+    float: right;
     font-size: 12px;
+    color: #ffffff;
+    vertical-align: text-bottom;
 }
 
 .app .detail .colors .led {
     display: inline-block;
+    line-height: 18px;
     -webkit-border-radius: 50%;
     border-radius: 50%;
     padding: 5px;
     margin-right: 5px;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
 }
 .app .detail .colors .led:last-child {
     margin-right: 0;
