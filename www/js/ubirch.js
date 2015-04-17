@@ -60,8 +60,9 @@ function ubirchTopo(mapScale) {
                         '<span class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</span>' +
                         '</div>' +
                     '<p>' + (details.text || 'No text available') + '</p>' +
-                    '<a href="http://twitter.com/home/?status=Finding%20Europe%20with%20Lights%20#fewl%20#rp15%20#'+countryCodeRight+'" target="_blank"> tweet it </a>'+
-                    '</div>' ,
+                    '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ubirch.com" data-text="Finding Europe with Lights" data-hashtags="fewl #rp15 #'+countryCodeRight+'">Tweet</a>' +
+                    '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>'+
+                    '</div>',
             updateContent = function () {
                 $detailContent
                     .addClass(className)
