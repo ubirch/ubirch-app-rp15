@@ -92,8 +92,6 @@ body {
 .app .detail {
     position: relative;
     overflow-x: hidden;
-    display: table;
-    width: 100%;
     height: 30%;
 }
 .app .detail .bg {
@@ -106,16 +104,23 @@ body {
     background: url('../img/ubirch_logo_white.svg') no-repeat center;
     z-index: -1;
 }
+.app .detail .wrap {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
 .app .detail .content {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
     font-size: 30px;
     text-shadow: 0 0 10px rgba(150, 150, 150, 1);
+    padding: 10px;
 }
 .app .detail .content p {
-    font-size: 20px;
-    margin: 5px 0;
+    font-size: 18px;
+    margin: 5px auto;
+    max-width: 320px;
 }
 /* animation */
 .app .detail .content {
@@ -139,13 +144,20 @@ body {
 }
 
 .app .detail .colors {
-    display: inline-block;
+    font-size: 12px;
 }
 
 .app .detail .colors .led {
+    display: inline-block;
     -webkit-border-radius: 50%;
     border-radius: 50%;
     padding: 5px;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+.app .detail .colors .led:last-child {
+    margin-right: 0;
 }
 
 /* credits */
