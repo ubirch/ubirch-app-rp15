@@ -85,8 +85,6 @@ function ubirchTopo(mapScale) {
     }
 
     (function handleCredits() {
-        if (window.analytics) window.analytics.trackView('Credits');
-
         var $credits = $('.credits'),
             $leaf = $('.leaf', $credits),
             classClose = 'close',
@@ -102,6 +100,7 @@ function ubirchTopo(mapScale) {
                     $credits.removeClass(classClosed);
                 }, 500);
             } else {
+                if (window.analytics) window.analytics.trackView('Credits');
                 $leaf.addClass(classClose);
                 $credits.addClass(classOpen);
             }
