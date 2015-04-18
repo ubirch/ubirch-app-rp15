@@ -50,7 +50,7 @@ function ubirchTopo(mapScale) {
     }
 
     function showDetail(details) {
-        if (window.analytics) window.analytics.trackEvent('location', 'click', countryCode);
+        if (window.analytics) window.analytics.trackEvent('location', details.name);
         var $detailContent = $('.content', $detail),
             className = 'visible',
             countryCode = details.name.toLowerCase(),
@@ -85,7 +85,7 @@ function ubirchTopo(mapScale) {
     }
 
     (function handleCredits() {
-        if (window.analytics) window.analytics.trackEvent('credits', 'click');
+        if (window.analytics) window.analytics.trackView('Credits');
 
         var $credits = $('.credits'),
             $leaf = $('.leaf', $credits),
@@ -114,7 +114,7 @@ function ubirchTopo(mapScale) {
         $('a[target=_blank]', $parent).on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            if (window.analytics) window.analytics.trackEvent('link', 'click', $(event.target).attr('href'));
+            if (window.analytics) window.analytics.trackEvent('link', $(event.target).attr('href'));
             openLink($(event.target).attr('href'));
         });
 
@@ -122,7 +122,7 @@ function ubirchTopo(mapScale) {
             e.stopPropagation();
             e.preventDefault();
             var element = $(this);
-            if (window.analytics) window.analytics.trackEvent('twitter', 'click', element.data('href'));
+            if (window.analytics) window.analytics.trackEvent('twitter', element.data('href'));
             shareTwitter(element.data('msg'), element.data('href'));
         })
     }
@@ -141,19 +141,6 @@ function ubirchTopo(mapScale) {
         else
             openLink(url);
     }
-
-    (function handleDayColor() {
-        var dateNow = new Date(),
-            hours = dateNow.getHours();
-
-        $app.removeClass('night-time day-time');
-
-        if (hours > 4 && hours < 18) {
-            $app.addClass('day-time');
-        } else {
-            $app.addClass('night-time');
-        }
-    })();
 
     function apiLoop(country) {
         var info = sensors[country];
@@ -198,9 +185,11 @@ function ubirchTopo(mapScale) {
 
                 $(window).trigger('map:ready');
             } catch (e) {
+                if(window.analytics) window.analytics.trackException(e.message, false);
                 console.log(e)
             }
         }).fail(function (e) {
+            if(window.analytics) window.analytics.trackException("sensor api failed: "+ e.message, false);
             console.log(e);
         }).always(function () {
             if (apiLoopTimeout != null) window.clearTimeout(apiLoopTimeout);

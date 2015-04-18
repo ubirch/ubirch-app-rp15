@@ -63,7 +63,7 @@ body {
 .app .map {
     position: relative;
     height: 70%;
-    background: #333333;
+    background: #000000;
     overflow: hidden;
     padding-left: auto;
     padding-right: auto;
@@ -74,7 +74,14 @@ body {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    background: #333333;
 }
+
+/* disable the maps background */
+.app .map svg #Ebene_3 rect {
+    opacity: 0;
+}
+
 .app .map .arrow {
     display: none;
     cursor: pointer;
