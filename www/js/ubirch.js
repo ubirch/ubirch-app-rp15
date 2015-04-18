@@ -150,12 +150,12 @@ function ubirchTopo(mapScale) {
         var dateNow = new Date(),
             hours = dateNow.getHours();
 
-        $map.removeClass('night-time day-time');
+        $app.removeClass('night-time day-time');
 
         if (hours > 4 && hours < 18) {
-            $map.addClass('day-time');
+            $app.addClass('day-time');
         } else {
-            $map.addClass('night-time');
+            $app.addClass('night-time');
         }
     })();
 
@@ -208,39 +208,75 @@ function ubirchTopo(mapScale) {
         });
     }
 
-    function handleZoom(forceClose) {
-        var className = 'zoom-in',
+    function handleZoom(direction, forceClose) {
+        var className = 'zoomed-in',
             middlePointY = $map.height() / 2,
             middlePointX = $map.width() / 2,
             scale = 1,
+            position = [],
             transform = {x: 0, y: 0};
 
-        if ($map.hasClass(className) || forceClose) {
-            $map.removeClass(className);
+        if (!direction && $map.hasClass(className) || !direction && forceClose) {
+            $map.attr('class','map');
             $('svg', $map).css({transform: ''});
         } else {
+            var opponentDirection = '';
+            if(direction){
+                var activeDirection = $map.attr('class').replace('map','').replace(className,'').replace(/ /g,'');
+                switch(true){
+                    case activeDirection === 'south-east':
+                        opponentDirection = (direction === 'west') ? 'south' : 'east';
+                    break;
+                    case activeDirection === 'south-west':
+                        opponentDirection = (direction === 'east') ? 'south' : 'west';
+                    break;
+                    case activeDirection === 'north-east':
+                        opponentDirection = (direction === 'west') ? 'north' : 'east';
+                    break;
+                    case activeDirection === 'north-west':
+                        opponentDirection = (direction === 'east') ? 'north' : 'west';
+                    break;
+                }
+            }
+            $map.attr('class','map');
             $map.addClass(className);
             scale = 2.5;
-            if (middlePointY > d3.event.y) {
+
+            if (d3.event != null && middlePointY >= d3.event.y || direction === 'north' || opponentDirection === 'north') {
                 transform.y = "15%";
-            } else {
+                position.push('north');
+            } else if(d3.event != null && middlePointY <= d3.event.y || direction === 'south' || opponentDirection === 'south') {
                 transform.y = "-30%";
+                position.push('south');
             }
-            if (middlePointX > d3.event.x) {
+            if (d3.event != null && middlePointX >= d3.event.x || direction === 'west' || opponentDirection === 'west') {
                 transform.x = "15%";
-            } else {
+                position.push('west');
+            } else if(d3.event != null && middlePointX <= d3.event.x || direction === 'east' || opponentDirection === 'east') {
                 transform.x = "-15%";
+                position.push('east');
             }
+            $map.addClass(position.join('-'));
             $('svg', $map).css({transform: 'scale(' + scale + ') translate(' + transform.x + ', ' + transform.y + ')'});
         }
     }
+
+    (function handleZoomDirections(){
+        var arrows = $('.arrow',$map);
+
+        arrows.click(function(){
+           handleZoom($(this).data('go-to'));
+        });
+    })()
 
     d3.xml(MAPS[mapScale].file, 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
         resize();
         d3.select(window).on('resize', resize);
 
-        d3.select('svg').selectAll('path,rect').on('click', handleZoom);
+        d3.select('svg').selectAll('path,rect').on('click', function(){
+            handleZoom();
+        });
 
         // load the sensors
         d3.json("js/sensors.json", function (data) {
