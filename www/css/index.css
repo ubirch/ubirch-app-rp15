@@ -98,7 +98,7 @@ body {
 
 /* hover map */
 g#EU path:hover {
-    fill: steelblue;
+    /*stroke: steelblue;*/
     cursor: pointer;
 }
 
