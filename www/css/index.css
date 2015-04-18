@@ -77,9 +77,29 @@ body {
     background: #333333;
 }
 
+/* animation */
+.app .map svg {
+    -webkit-transition: transform 0.5s ease-out;
+    -moz-transition: transform 0.5s ease-out;
+    -o-transition: transform 0.5s ease-out;
+    transition: transform 0.5s ease-out;
+}
+
+.app .map svg polyline {
+    stroke-width: 2;
+    stroke-opacity: 100%;
+    stroke: #222222;
+}
+
 /* disable the maps background */
 .app .map svg #Ebene_3 rect {
     opacity: 0;
+}
+
+/* hover map */
+g#EU path:hover {
+    fill: steelblue;
+    cursor: pointer;
 }
 
 .app .map .arrow {
@@ -141,20 +161,6 @@ body {
 .app .map.south-east .south,
 .app .map.south-east .east {
     display: none;
-}
-
-/* animation */
-.app .map svg {
-    -webkit-transition: transform 0.5s ease-out;
-    -moz-transition: transform 0.5s ease-out;
-    -o-transition: transform 0.5s ease-out;
-    transition: transform 0.5s ease-out;
-}
-
-.app .map svg polyline {
-    stroke-width: 2;
-    stroke-opacity: 100%;
-    stroke: #222222;
 }
 
 .app .detail {
@@ -352,8 +358,3 @@ body {
     transition: all 0.5s ease-out;*/
 }
 
-/* hover map */
-g#EU path:hover {
-    fill: steelblue;
-    cursor: pointer;
-}
