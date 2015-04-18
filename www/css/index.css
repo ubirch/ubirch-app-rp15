@@ -152,9 +152,9 @@ body {
 }
 
 .app .map svg polyline {
-    stroke-width: 3;
-    stroke-opacity: 30%;
-    stroke: #101010;
+    stroke-width: 2;
+    stroke-opacity: 100%;
+    stroke: #222222;
 }
 
 .app .detail {
