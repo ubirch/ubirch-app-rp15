@@ -1,5 +1,5 @@
 function ubirchTopo(mapScale) {
-    if(window.analytics) {
+    if (window.analytics) {
         window.analytics.startTrackerWithId('UA-61988119-1');
         window.analytics.trackView('Map View');
     }
@@ -17,13 +17,11 @@ function ubirchTopo(mapScale) {
         }
     ];
     var REFRESH = 30000,
-        mapDimensions = "934.011x661.642".split('x'),
-        mapRatio = mapDimensions[0] / mapDimensions[1],
         $app = $('.app'),
         $map = $('.map', $app),
         $detail = $('.detail', $app),
-        dayColor = '#333333',
-        timeout = null,
+        updateContentTimeout = null,
+        apiLoopTimeout = null,
         sensors = {};
 
     function resize() {
@@ -31,43 +29,43 @@ function ubirchTopo(mapScale) {
         $('.credits .bg').css({maxHeight: ($app.height() - 150) + "px"});
 
         var winDim = {
-            width: $(window).width(),
-            height: $(window).height()
-        },
+                width: $(window).width(),
+                height: $(window).height()
+            },
             fontSize = 16;
 
-        switch(true){
+        switch (true) {
             case winDim.width <= 400:
                 fontSize = 10;
-            break;
+                break;
             case winDim.width <= 600:
                 fontSize = 12;
-            break;
+                break;
             case winDim.width <= 1024:
                 fontSize = 14;
-            break;
+                break;
         }
 
-        $('.content',$app).css({fontSize:fontSize+'px'});
+        $('.content', $app).css({fontSize: fontSize + 'px'});
     }
 
     function showDetail(details) {
-        if(window.analytics) window.analytics.trackEvent('location', 'click', countryCode);
+        if (window.analytics) window.analytics.trackEvent('location', 'click', countryCode);
         var $detailContent = $('.content', $detail),
             className = 'visible',
             countryCode = details.name.toLowerCase(),
             convertCountries = {uk: 'gb'},
             countryCodeRight = (countryCode in convertCountries ? convertCountries[countryCode] : countryCode),
             html = '<div class="body">' +
-                        '<span><i class="flag flag-' + countryCodeRight + '"></i> ' + details.country + '</span>'+
-                        '<div class="colors">' +
-                            '<div class="led" style="background-color: rgb('+details.color[0]+',0,0);">'+details.color[0]+'</div>'+
-                            '<div class="led" style="background-color: rgb(0,'+details.color[1]+',0);">'+details.color[1]+'</div>'+
-                            '<div class="led" style="background-color: rgb(0,0,'+details.color[2]+');">'+details.color[2]+'</div>' +
-                        '</div>' +
-                    '<p>' + (details.text || 'No text available') + '</p>' +
-                    '<a class="twitter" data-msg="Finding Europe with Lights #fewl #rp15 #'+countryCodeRight+'" data-href="https://twitter.com/intent/tweet?hashtags=fewl%20%23rp15%20%23'+countryCodeRight+'&text=Finding%20Europe%20with%20Lights&tw_p=tweetbutton&url=http%3A%2F%2Fubirch.com"></a>' +
-                    '</div>',
+                '<span><i class="flag flag-' + countryCodeRight + '"></i> ' + details.country + '</span>' +
+                '<div class="colors">' +
+                '<div class="led" style="background-color: rgb(' + details.color[0] + ',0,0);">' + details.color[0] + '</div>' +
+                '<div class="led" style="background-color: rgb(0,' + details.color[1] + ',0);">' + details.color[1] + '</div>' +
+                '<div class="led" style="background-color: rgb(0,0,' + details.color[2] + ');">' + details.color[2] + '</div>' +
+                '</div>' +
+                '<p>' + (details.text || 'No text available') + '</p>' +
+                '<a class="twitter" data-msg="Finding Europe with Lights #fewl #rp15 #' + countryCodeRight + '" data-href="https://twitter.com/intent/tweet?hashtags=fewl%20%23rp15%20%23' + countryCodeRight + '&text=Finding%20Europe%20with%20Lights&tw_p=tweetbutton&url=http%3A%2F%2Fubirch.com"></a>' +
+                '</div>',
             updateContent = function () {
                 $detailContent
                     .addClass(className)
@@ -78,9 +76,8 @@ function ubirchTopo(mapScale) {
 
         if ($detailContent.hasClass(className)) {
             $detailContent.removeClass(className);
-            if (timeout != null)
-                window.clearTimeout(timeout);
-            timeout = window.setTimeout(function () {
+            if (updateContentTimeout != null) window.clearTimeout(updateContentTimeout);
+            updateContentTimeout = window.setTimeout(function () {
                 updateContent();
             }, 600);
         } else
@@ -88,7 +85,7 @@ function ubirchTopo(mapScale) {
     }
 
     (function handleCredits() {
-        if(window.analytics) window.analytics.trackEvent('credits', 'click');
+        if (window.analytics) window.analytics.trackEvent('credits', 'click');
 
         var $credits = $('.credits'),
             $leaf = $('.leaf', $credits),
@@ -113,25 +110,24 @@ function ubirchTopo(mapScale) {
         handleExternLinks($credits);
     })();
 
-    function handleExternLinks($parent){
-
+    function handleExternLinks($parent) {
         $('a[target=_blank]', $parent).on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            if(window.analytics) window.analytics.trackEvent('link', 'click', $(event.target).attr('href'));
+            if (window.analytics) window.analytics.trackEvent('link', 'click', $(event.target).attr('href'));
             openLink($(event.target).attr('href'));
         });
 
-        $('a.twitter', $parent).on('click', function(e){
+        $('a.twitter', $parent).on('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
             var element = $(this);
-            if(window.analytics) window.analytics.trackEvent('twitter', 'click', element.data('href'));
-            shareTwitter(element.data('msg'),element.data('href'));
+            if (window.analytics) window.analytics.trackEvent('twitter', 'click', element.data('href'));
+            shareTwitter(element.data('msg'), element.data('href'));
         })
     }
 
-    function openLink(href){
+    function openLink(href) {
         if (app.isPhonegap) {
             window.open(href, '_system', 'location=yes');
         } else {
@@ -140,7 +136,7 @@ function ubirchTopo(mapScale) {
     }
 
     function shareTwitter(msg, url) {
-        if('plugins' in window && 'socialsharing' in window.plugins)
+        if ('plugins' in window && 'socialsharing' in window.plugins)
             window.plugins.socialsharing.shareViaTwitter(msg);
         else
             openLink(url);
@@ -188,11 +184,16 @@ function ubirchTopo(mapScale) {
                     b = feeds[0]['field3'];
 
                 d3.select('#' + info['pos'][mapScale])
-                    .attr('stroke', '#ffffff')
+                    //.attr('stroke', '#ffffff')
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .attr('class', 'with-cursor')
                     .on('click', function () {
-                        showDetail({name: name, country: sensors[name]['country'], text: channel['description'], color: [r,g,b]});
+                        showDetail({
+                            name: name,
+                            country: sensors[name]['country'],
+                            text: channel['description'],
+                            color: [r, g, b]
+                        });
                     });
 
                 $(window).trigger('map:ready');
@@ -202,7 +203,8 @@ function ubirchTopo(mapScale) {
         }).fail(function (e) {
             console.log(e);
         }).always(function () {
-            setTimeout(function () {
+            if (apiLoopTimeout != null) window.clearTimeout(apiLoopTimeout);
+            apiLoopTimeout = setTimeout(function () {
                 apiLoop(country)
             }, REFRESH);
         });
@@ -217,42 +219,42 @@ function ubirchTopo(mapScale) {
             transform = {x: 0, y: 0};
 
         if (!direction && $map.hasClass(className) || !direction && forceClose) {
-            $map.attr('class','map');
+            $map.attr('class', 'map');
             $('svg', $map).css({transform: ''});
         } else {
             var opponentDirection = '';
-            if(direction){
-                var activeDirection = $map.attr('class').replace('map','').replace(className,'').replace(/ /g,'');
-                switch(true){
+            if (direction) {
+                var activeDirection = $map.attr('class').replace('map', '').replace(className, '').replace(/ /g, '');
+                switch (true) {
                     case activeDirection === 'south-east':
                         opponentDirection = (direction === 'west') ? 'south' : 'east';
-                    break;
+                        break;
                     case activeDirection === 'south-west':
                         opponentDirection = (direction === 'east') ? 'south' : 'west';
-                    break;
+                        break;
                     case activeDirection === 'north-east':
                         opponentDirection = (direction === 'west') ? 'north' : 'east';
-                    break;
+                        break;
                     case activeDirection === 'north-west':
                         opponentDirection = (direction === 'east') ? 'north' : 'west';
-                    break;
+                        break;
                 }
             }
-            $map.attr('class','map');
+            $map.attr('class', 'map');
             $map.addClass(className);
             scale = 2.5;
 
             if (d3.event != null && middlePointY >= d3.event.y || direction === 'north' || opponentDirection === 'north') {
                 transform.y = "15%";
                 position.push('north');
-            } else if(d3.event != null && middlePointY <= d3.event.y || direction === 'south' || opponentDirection === 'south') {
+            } else if (d3.event != null && middlePointY <= d3.event.y || direction === 'south' || opponentDirection === 'south') {
                 transform.y = "-30%";
                 position.push('south');
             }
             if (d3.event != null && middlePointX >= d3.event.x || direction === 'west' || opponentDirection === 'west') {
                 transform.x = "15%";
                 position.push('west');
-            } else if(d3.event != null && middlePointX <= d3.event.x || direction === 'east' || opponentDirection === 'east') {
+            } else if (d3.event != null && middlePointX <= d3.event.x || direction === 'east' || opponentDirection === 'east') {
                 transform.x = "-15%";
                 position.push('east');
             }
@@ -261,20 +263,20 @@ function ubirchTopo(mapScale) {
         }
     }
 
-    (function handleZoomDirections(){
-        var arrows = $('.arrow',$map);
+    (function handleZoomDirections() {
+        var arrows = $('.arrow', $map);
 
-        arrows.click(function(){
-           handleZoom($(this).data('go-to'));
+        arrows.click(function () {
+            handleZoom($(this).data('go-to'));
         });
-    })()
+    })();
 
     d3.xml(MAPS[mapScale].file, 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
         resize();
         d3.select(window).on('resize', resize);
 
-        d3.select('svg').selectAll('path,rect').on('click', function(){
+        d3.select('svg').selectAll('path,rect').on('click', function () {
             handleZoom();
         });
 
