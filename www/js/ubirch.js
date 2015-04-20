@@ -210,7 +210,6 @@ function ubirchTopo(mapScale) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
         var minScale = MAPS[mapScale].transform.scale;
         var leftTop = MAPS[mapScale].transform.pos;
-        var size = MAPS[mapScale].transform.size;
 
         // reset to default zoom
         function resetZoom() {
@@ -227,27 +226,24 @@ function ubirchTopo(mapScale) {
             .attr("preserveAspectRatio", "xMidYMax meet");
         resetZoom();
 
-        var onZoom = function () {
+        var zoom = d3.behavior.zoom().on('zoom', function () {
             var scale = d3.event.scale,
                 translate = d3.event.translate;
 
             translate[0] = translate[0] < leftTop[0] ? translate[0] : leftTop[0];
-            //translate[0] = translate[0] > leftTop[2] ? translate[0] : leftTop[2];
             translate[1] = translate[1] < leftTop[1] ? translate[1] : leftTop[1];
-            //translate[1] = translate[1] > leftTop[3] ? translate[1] : leftTop[3];
-            //console.log(scale + "/" + translate+", ["+MAPS[mapScale].transform.pos+"]");
-
 
             if (scale < minScale) {
                 resetZoom();
                 return;
             }
+            if(scale > 3) scale = 3;
 
             d3.select($map[0]).select("svg").selectAll("g")
                 .attr('transform', 'scale(' + scale + ')translate(' + translate.join(" ") + ')');
-        };
+        });
 
-        var zoom = d3.behavior.zoom().on('zoom', onZoom);
+
         d3.select($map[0]).select("svg").call(zoom);
 
         //d3.select('svg').selectAll('path,rect').on('click', function () {
