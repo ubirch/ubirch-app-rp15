@@ -52,8 +52,8 @@ function ubirchTopo(mapScale) {
                 fontSize = 14;
                 break;
         }
-        console.log(winDim.width*1.3 +", "+winDim.height);
-        if(winDim.width * 1.3 > winDim.height) {
+
+        if (winDim.width * 1.3 > winDim.height) {
             $('.app .map').addClass("landscape");
             $('.app .detail').addClass("landscape");
         } else {
@@ -62,6 +62,13 @@ function ubirchTopo(mapScale) {
         }
 
         $('.content', $app).css({fontSize: fontSize + 'px'});
+
+        var minScale = MAPS[mapScale].transform.scale;
+        var leftTop = MAPS[mapScale].transform.pos;
+
+        // reset to default zoom
+        d3.select($map[0]).select("svg").selectAll("g")
+            .attr("transform", 'scale(' + minScale + ')translate(' + leftTop.join(" ") + ')');
     }
 
     function showDetail(details) {
@@ -218,12 +225,6 @@ function ubirchTopo(mapScale) {
         var minScale = MAPS[mapScale].transform.scale;
         var leftTop = MAPS[mapScale].transform.pos;
 
-        // reset to default zoom
-        function resetZoom() {
-            d3.select($map[0]).select("svg").selectAll("g")
-                .attr("transform", 'scale(' + minScale + ')translate(' + leftTop.join(" ") + ')');
-        }
-
         // handle global window settings
         resize();
         d3.select(window).on('resize', resize);
@@ -231,20 +232,19 @@ function ubirchTopo(mapScale) {
         d3.select($map[0]).select("svg")
             .attr("viewBox", MAPS[mapScale].viewBox)
             .attr("preserveAspectRatio", "xMidYMax meet");
-        resetZoom();
 
         var zoom = d3.behavior.zoom()
             .scaleExtent([minScale, minScale + 2.0])
             .on('zoom', function () {
-            var scale = d3.event.scale,
-                translate = d3.event.translate;
+                var scale = d3.event.scale,
+                    translate = d3.event.translate;
 
-            translate[0] = translate[0] < leftTop[0] ? translate[0] : leftTop[0];
-            translate[1] = translate[1] < leftTop[1] ? translate[1] : leftTop[1];
+                translate[0] = translate[0] < leftTop[0] ? translate[0] : leftTop[0];
+                translate[1] = translate[1] < leftTop[1] ? translate[1] : leftTop[1];
 
-            d3.select($map[0]).select("svg").selectAll("g")
-                .attr('transform', 'scale(' + scale + ')translate(' + translate.join(" ") + ')');
-        });
+                d3.select($map[0]).select("svg").selectAll("g")
+                    .attr('transform', 'scale(' + scale + ')translate(' + translate.join(" ") + ')');
+            });
 
         d3.select($map[0]).select("svg").call(zoom);
 
