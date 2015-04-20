@@ -22,7 +22,8 @@ function ubirchTopo(mapScale) {
             }
         }
     ];
-    var REFRESH = 30000,
+
+    var REFRESH = 120000,
         $app = $('.app'),
         $map = $('.map', $app),
         $detail = $('.detail', $app),
