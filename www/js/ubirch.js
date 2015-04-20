@@ -8,12 +8,18 @@ function ubirchTopo(mapScale) {
         {
             file: 'img/Finding_Lights_Republica2015_Map_150415_1.svg',
             viewBox: '0 0 670 682',
-            transform: 'scale(1.25) translate(-234 -120)'
+            transform: {
+                scale: 1.25,
+                pos: [-234, -120]
+            }
         },
         {
             file: 'img/Finding_Lights_Republica2015_Map_150415_2.svg',
             viewBox: '0 0 1380 1500',
-            transform: 'scale(1.16) translate(10 450)'
+            transform: {
+                scale: 1.16,
+                pos: [10, 450]
+            }
         }
     ];
     var REFRESH = 30000,
@@ -50,6 +56,7 @@ function ubirchTopo(mapScale) {
     }
 
     function showDetail(details) {
+        console.log(details);
         if (window.analytics) window.analytics.trackEvent('location', details.name);
         var $detailContent = $('.content', $detail),
             className = 'visible',
@@ -142,6 +149,7 @@ function ubirchTopo(mapScale) {
     }
 
     function apiLoop(country) {
+        console.log("country: " + country);
         var info = sensors[country];
         if (!info) return;
         if (!info['feed']) {
@@ -184,11 +192,11 @@ function ubirchTopo(mapScale) {
 
                 $(window).trigger('map:ready');
             } catch (e) {
-                if(window.analytics) window.analytics.trackException(e.message, false);
+                if (window.analytics) window.analytics.trackException(e.message, false);
                 console.log(e)
             }
         }).fail(function (e) {
-            if(window.analytics) window.analytics.trackException("sensor api failed: "+ e.message, false);
+            if (window.analytics) window.analytics.trackException("sensor api failed: " + e.message, false);
             console.log(e);
         }).always(function () {
             if (apiLoopTimeout != null) window.clearTimeout(apiLoopTimeout);
@@ -198,75 +206,53 @@ function ubirchTopo(mapScale) {
         });
     }
 
-    function handleZoom(direction, forceClose) {
-        var className = 'zoomed-in',
-            middlePointY = $map.height() / 2,
-            middlePointX = $map.width() / 2,
-            scale = 1,
-            position = [],
-            transform = {x: 0, y: 0};
-
-        if (!direction && $map.hasClass(className) || !direction && forceClose) {
-            $map.attr('class', 'map');
-            $('svg', $map).css({transform: ''});
-        } else {
-            var opponentDirection = '';
-            if (direction) {
-                var activeDirection = $map.attr('class').replace('map', '').replace(className, '').replace(/ /g, '');
-                switch (true) {
-                    case activeDirection === 'south-east':
-                        opponentDirection = (direction === 'west') ? 'south' : 'east';
-                        break;
-                    case activeDirection === 'south-west':
-                        opponentDirection = (direction === 'east') ? 'south' : 'west';
-                        break;
-                    case activeDirection === 'north-east':
-                        opponentDirection = (direction === 'west') ? 'north' : 'east';
-                        break;
-                    case activeDirection === 'north-west':
-                        opponentDirection = (direction === 'east') ? 'north' : 'west';
-                        break;
-                }
-            }
-            $map.attr('class', 'map');
-            $map.addClass(className);
-            scale = 2.5;
-
-            if (d3.event != null && middlePointY >= d3.event.y || direction === 'north' || opponentDirection === 'north') {
-                transform.y = "15%";
-                position.push('north');
-            } else if (d3.event != null && middlePointY <= d3.event.y || direction === 'south' || opponentDirection === 'south') {
-                transform.y = "-30%";
-                position.push('south');
-            }
-            if (d3.event != null && middlePointX >= d3.event.x || direction === 'west' || opponentDirection === 'west') {
-                transform.x = "15%";
-                position.push('west');
-            } else if (d3.event != null && middlePointX <= d3.event.x || direction === 'east' || opponentDirection === 'east') {
-                transform.x = "-15%";
-                position.push('east');
-            }
-            $map.addClass(position.join('-'));
-            $('svg', $map).css({transform: 'scale(' + scale + ') translate(' + transform.x + ', ' + transform.y + ')'});
-        }
-    }
-
-    (function handleZoomDirections() {
-        var arrows = $('.arrow', $map);
-
-        arrows.click(function () {
-            handleZoom($(this).data('go-to'));
-        });
-    })();
-
     d3.xml(MAPS[mapScale].file, 'image/svg+xml', function (xml) {
         d3.select($map[0]).node().appendChild(xml.documentElement);
+        var minScale = MAPS[mapScale].transform.scale;
+        var leftTop = MAPS[mapScale].transform.pos;
+        var size = MAPS[mapScale].transform.size;
+
+        // reset to default zoom
+        function resetZoom() {
+            d3.select($map[0]).select("svg").selectAll("g")
+                .attr("transform", 'scale(' + minScale + ')translate(' + leftTop.join(" ") + ')');
+        }
+
+        // handle global window settings
         resize();
         d3.select(window).on('resize', resize);
 
-        d3.select('svg').selectAll('path,rect').on('click', function () {
-            handleZoom();
-        });
+        d3.select($map[0]).select("svg")
+            .attr("viewBox", MAPS[mapScale].viewBox)
+            .attr("preserveAspectRatio", "xMidYMax meet");
+        resetZoom();
+
+        var onZoom = function () {
+            var scale = d3.event.scale,
+                translate = d3.event.translate;
+
+            translate[0] = translate[0] < leftTop[0] ? translate[0] : leftTop[0];
+            //translate[0] = translate[0] > leftTop[2] ? translate[0] : leftTop[2];
+            translate[1] = translate[1] < leftTop[1] ? translate[1] : leftTop[1];
+            //translate[1] = translate[1] > leftTop[3] ? translate[1] : leftTop[3];
+            //console.log(scale + "/" + translate+", ["+MAPS[mapScale].transform.pos+"]");
+
+
+            if (scale < minScale) {
+                resetZoom();
+                return;
+            }
+
+            d3.select($map[0]).select("svg").selectAll("g")
+                .attr('transform', 'scale(' + scale + ')translate(' + translate.join(" ") + ')');
+        };
+
+        var zoom = d3.behavior.zoom().on('zoom', onZoom);
+        d3.select($map[0]).select("svg").call(zoom);
+
+        //d3.select('svg').selectAll('path,rect').on('click', function () {
+        //    handleZoom();
+        //});
 
         // load the sensors
         d3.json("js/sensors.json", function (data) {
@@ -278,12 +264,6 @@ function ubirchTopo(mapScale) {
             });
         });
 
-        // prepare map (typ 0 is coarse, type 1 more detailed)
-        d3.select($map[0]).select("svg")
-            .attr("viewBox", MAPS[mapScale].viewBox)
-            .attr("preserveAspectRatio", "xMidYMax meet");
 
-        d3.select($map[0]).select("svg").selectAll("g")
-            .attr("transform", MAPS[mapScale].transform);
     });
 }
