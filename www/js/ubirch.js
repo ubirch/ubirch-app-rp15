@@ -226,29 +226,20 @@ function ubirchTopo(mapScale) {
             .attr("preserveAspectRatio", "xMidYMax meet");
         resetZoom();
 
-        var zoom = d3.behavior.zoom().on('zoom', function () {
+        var zoom = d3.behavior.zoom()
+            .scaleExtent([minScale, minScale + 2.0])
+            .on('zoom', function () {
             var scale = d3.event.scale,
                 translate = d3.event.translate;
 
             translate[0] = translate[0] < leftTop[0] ? translate[0] : leftTop[0];
             translate[1] = translate[1] < leftTop[1] ? translate[1] : leftTop[1];
 
-            if (scale < minScale) {
-                resetZoom();
-                return;
-            }
-            if(scale > 3) scale = 3;
-
             d3.select($map[0]).select("svg").selectAll("g")
                 .attr('transform', 'scale(' + scale + ')translate(' + translate.join(" ") + ')');
         });
 
-
         d3.select($map[0]).select("svg").call(zoom);
-
-        //d3.select('svg').selectAll('path,rect').on('click', function () {
-        //    handleZoom();
-        //});
 
         // load the sensors
         d3.json("js/sensors.json", function (data) {
