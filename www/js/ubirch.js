@@ -57,7 +57,6 @@ function ubirchTopo(mapScale) {
     }
 
     function showDetail(details) {
-        console.log(details);
         if (window.analytics) window.analytics.trackEvent('location', details.name);
         var $detailContent = $('.content', $detail),
             className = 'visible',
@@ -150,7 +149,6 @@ function ubirchTopo(mapScale) {
     }
 
     function apiLoop(country) {
-        console.log("country: " + country);
         var info = sensors[country];
         if (!info) return;
         if (!info['feed']) {
