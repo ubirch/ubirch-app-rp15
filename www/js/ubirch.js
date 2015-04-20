@@ -52,6 +52,14 @@ function ubirchTopo(mapScale) {
                 fontSize = 14;
                 break;
         }
+        console.log(winDim.width*1.3 +", "+winDim.height);
+        if(winDim.width * 1.3 > winDim.height) {
+            $('.app .map').addClass("landscape");
+            $('.app .detail').addClass("landscape");
+        } else {
+            $('.app .map').removeClass("landscape");
+            $('.app .detail').removeClass("landscape");
+        }
 
         $('.content', $app).css({fontSize: fontSize + 'px'});
     }

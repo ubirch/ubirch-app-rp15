@@ -69,6 +69,16 @@ body {
     padding-right: auto;
 }
 
+.app .map.landscape {
+    height: 100%;
+    width: 70%;
+    float: left;
+}
+
+.app .detail.landscape {
+    height: 100%;
+}
+
 .app .map svg {
     height: 100%;
     width: 100%;
@@ -102,72 +112,12 @@ g#EU path:hover {
     cursor: pointer;
 }
 
-.app .map .arrow {
-    display: none;
-    cursor: pointer;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    z-index: 1;
-    background: url('../img/arrow.png') no-repeat;
-    opacity: 0.5;
-}
-.app .map.zoomed-in .arrow {
-    display: block;
-}
-.app .map .arrow.east {
-    top: 50%;
-    right: 0;
-}
-.app .map .arrow.north {
-    top: 0;
-    left: 50%;
-    transform: rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-}
-.app .map .arrow.south {
-    bottom: 0;
-    left: 50%;
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-}
-.app .map .arrow.west {
-    left: 0;
-    top: 50%;
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-}
-.app .map.north-east .north,
-.app .map.north-east .east {
-    display: none;
-}
-.app .map.north-west .north,
-.app .map.north-west .west {
-    display: none;
-}
-.app .map.south-west .south,
-.app .map.south-west .west {
-    display: none;
-}
-.app .map.south-east .south,
-.app .map.south-east .east {
-    display: none;
-}
-
 .app .detail {
     position: relative;
     overflow-x: hidden;
     height: 30%;
 }
+
 .app .detail .bg {
     opacity: 0.5;
     position: absolute;
