@@ -23,7 +23,7 @@ ATTRIBUTION
 
 * ubirch Logo (c) 2015 [ubirch GmbH](http://www.ubirch.com)
 * re:publica 2015 Logo (c) 2015 [re:publica](http://re-publica.de)
-* Europe Maps (c) 2015 [fuenfwerken Design AG](http://fuenfwerken.com) (licensed for use with this App)
+* Europe Maps (c) 2015 [Fuenfwerken Design AG](http://fuenfwerken.com) (licensed for use with this App)
 * [PhoneGap/Cordova](http://phonegap.com/) ([Apache License 2.0](http://phonegap.com/about/license/))
 * [jQuery](http://jquery.com) ([jQuery License](jquery.org/license))
 * [d3.js](d3js.org) ([BSD License](https://github.com/mbostock/d3/blob/master/LICENSE))
