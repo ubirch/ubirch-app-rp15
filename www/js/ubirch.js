@@ -185,7 +185,7 @@ function ubirchTopo(mapScale) {
             try {
                 var name = channel['name'];
                 if (name != country)
-                    console.log("WARN: wrong country queried!");
+                    console.log("WARN: wrong country queried (expected="+country+", got="+name+"!");
 
                 var r = feeds[0]['field1'],
                     g = feeds[0]['field2'],
@@ -193,6 +193,7 @@ function ubirchTopo(mapScale) {
 
                 d3.select('#' + info['pos'][mapScale])
                     //.attr('stroke', '#ffffff')
+                    .attr('country', country)
                     .attr('fill', 'rgb(' + r + "," + g + "," + b + ")")
                     .attr('class', 'with-cursor')
                     .on('click', function () {

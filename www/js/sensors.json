@@ -21,7 +21,7 @@
       "path1506_10_",
       "path1718_9_"
     ],
-    "feed": "http://api.ubirch.com/channels/15/feed"
+    "feed": "http://api.ubirch.com/channels/41/feed"
   },
   "HR": {
     "country": "Croatia",
@@ -61,7 +61,7 @@
       "path2414_9_",
       "path2594_8_"
     ],
-    "feed": "http://api.ubirch.com/channels/19/feed"
+    "feed": "http://api.ubirch.com/channels/40/feed"
   },
   "FI": {
     "country": "Finland",
@@ -109,7 +109,7 @@
       "path58_2_",
       "path1390_7_"
     ],
-    "feed": "http://api.ubirch.com/channels/25/feed"
+    "feed": "http://api.ubirch.com/channels/35/feed"
   },
   "IT": {
     "country": "Italy",
@@ -117,7 +117,7 @@
       "path2398_15_",
       "path2230_26_"
     ],
-    "feed": "http://api.ubirch.com/channels/26/feed"
+    "feed": "http://api.ubirch.com/channels/36/feed"
   },
   "LV": {
     "country": "Latvia",
@@ -125,7 +125,7 @@
       "path2718_11_",
       "path490_8_"
     ],
-    "feed": "http://api.ubirch.com/channels/27/feed"
+    "feed": "http://api.ubirch.com/channels/39/feed"
   },
   "LT": {
     "country": "Lithuania",
@@ -157,7 +157,7 @@
       "path242_13_",
       "path2066_10_"
     ],
-    "feed": "http://api.ubirch.com/channels/1/feed"
+    "feed": "http://api.ubirch.com/channels/37/feed"
   },
   "PL": {
     "country": "Poland",
@@ -173,7 +173,7 @@
       "path1866_13_",
       "path2590_10_"
     ],
-    "feed": "http://api.ubirch.com/channels/31/feed"
+    "feed": "http://api.ubirch.com/channels/38/feed"
   },
   "RO": {
     "country": "Romania",
