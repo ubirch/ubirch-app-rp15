@@ -14,7 +14,7 @@ var app = {
         }
     },
     onDeviceReady: function () {
-        ubirchTopo(1);
+        ubirchTopo(0);
 
         FastClick.attach(document.body);
 
