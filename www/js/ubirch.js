@@ -198,8 +198,8 @@ function ubirchTopo(mapScale) {
                     .attr('class', 'with-cursor')
                     .on('click', function () {
                         showDetail({
-                            name: name,
-                            country: sensors[name]['country'],
+                            name: country,
+                            country: sensors[country]['country'],
                             text: channel['description'],
                             color: [r, g, b]
                         });
